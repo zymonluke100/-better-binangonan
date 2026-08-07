@@ -8,18 +8,25 @@ interface BottomNavProps {
   unresolvedReportsCount?: number;
 }
 
+interface NavItem {
+  id: NavTab;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: number | null;
+}
+
 export const BottomNav: React.FC<BottomNavProps> = ({
   activeTab,
   onSelectTab,
   unresolvedReportsCount = 0,
 }) => {
-  const tabs = [
+  const tabs: NavItem[] = [
     { id: 'home', label: 'Tahanan', icon: Home },
     { id: 'services', label: 'LGU Offices', icon: Building2 },
     { id: 'updates', label: 'Balita & Reports', icon: Radio, badge: unresolvedReportsCount > 0 ? unresolvedReportsCount : null },
     { id: 'emergency', label: 'Emergency', icon: AlertTriangle },
     { id: 'account', label: 'Account', icon: UserCheck },
-  ] as const;
+  ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-xl">
