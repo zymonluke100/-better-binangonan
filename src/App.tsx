@@ -51,13 +51,31 @@ export default function App() {
 
   // User state - Pre-logged in with Senior Demo account for instant ease of use!
   const [user, setUser] = useState<UserProfile | null>({
+    residentId: 'BNG-2026-SR-7890',
     name: 'Lolo Juan Dela Cruz',
+    firstName: 'Juan',
+    lastName: 'Dela Cruz',
     email: 'juan.delacruz@binangonan.ph',
     barangay: 'Brgy. Calumpang, Binangonan',
-    isSeniorCitizen: true,
-    seniorIdNumber: 'BNG-SR-2026-7890',
+    address: '124 Sitio Libis, Brgy. Calumpang, Binangonan, Rizal',
+    birthDate: '1958-04-12',
+    age: 68,
+    gender: 'Male',
+    civilStatus: 'Widowed',
+    occupation: 'Retired Public School Teacher',
     contactNumber: '0918-123-4567',
+    emergencyContactName: 'Maria Cruz (Anak)',
+    emergencyContactPhone: '0917-555-9081',
+    bloodType: 'O+',
+    philHealthNo: '12-05981248-9',
+    householdSize: 4,
+    numDependents: 2,
+    sector: 'Senior Citizen',
+    isSeniorCitizen: true,
+    seniorIdNumber: 'BNG-2026-SR-7890',
+    voterStatus: 'Registered Voter (Binangonan)',
     isLoggedIn: true,
+    createdAt: '2026-01-15'
   });
 
   const toggleTheme = () => {
@@ -181,6 +199,7 @@ export default function App() {
           <AccountTab
             user={user}
             onLogout={() => setUser(null)}
+            onUpdateUser={(updated) => setUser(updated)}
           />
         )}
       </main>

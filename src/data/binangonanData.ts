@@ -238,6 +238,7 @@ export const BARANGAYS_LIST: BarangayInfo[] = [
   { name: 'Kasagpan', captain: 'Hon. Noel Arambulo', contact: '0917-102-0004', locationType: 'Talim Island', populationEst: '2,400', hallAddress: 'Kasagpan Waterfront' },
   { name: 'Kaytitinga', captain: 'Hon. Andres Discutido', contact: '0917-102-0016', locationType: 'Talim Island', populationEst: '1,800', hallAddress: 'Kaytitinga Hillside, Talim Island' },
   { name: 'Kinaboogan', captain: 'Hon. Sofia Cequeña', contact: '0917-102-0005', locationType: 'Talim Island', populationEst: '3,100', hallAddress: 'Kinaboogan Seawall' },
+  { name: 'Limbon-limbon', captain: 'Hon. Jose Unida', contact: '0917-102-0018', locationType: 'Talim Island', populationEst: '2,950', hallAddress: 'Limbon-limbon Coastal Road, Talim Island' },
   { name: 'Malakaban', captain: 'Hon. Francisca Gil', contact: '0917-102-0006', locationType: 'Talim Island', populationEst: '2,800', hallAddress: 'Malakaban Bamboo Wharf' },
   { name: 'Pinagdilawan', captain: 'Hon. Gregorio Cervo', contact: '0917-102-0007', locationType: 'Talim Island', populationEst: '1,900', hallAddress: 'Pinagdilawan Cove' },
   { name: 'Pipindan', captain: 'Hon. Honorio Cenidoza', contact: '0917-102-0017', locationType: 'Talim Island', populationEst: '4,100', hallAddress: 'Pipindan Point Light Station' },

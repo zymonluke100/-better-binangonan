@@ -1,13 +1,32 @@
 export type NavTab = 'home' | 'services' | 'updates' | 'emergency' | 'ai' | 'account';
 
 export interface UserProfile {
+  residentId: string; // Unique Primary Key e.g. BNG-2026-89412
   name: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   barangay: string;
+  address?: string; // Street / Sitio / House No.
+  birthDate?: string;
+  age?: number;
+  gender?: 'Male' | 'Female' | 'Other';
+  civilStatus?: 'Single' | 'Married' | 'Widowed' | 'Separated';
+  occupation?: string;
+  contactNumber: string;
+  emergencyContactName?: string;
+  emergencyContactPhone?: string;
+  bloodType?: string;
+  philHealthNo?: string;
+  householdSize?: number;
+  numDependents?: number;
+  sector?: 'Regular Resident' | 'Senior Citizen' | 'PWD' | 'Solo Parent' | 'Youth / SK';
   isSeniorCitizen?: boolean;
   seniorIdNumber?: string;
-  contactNumber: string;
+  pwdIdNumber?: string;
+  voterStatus?: 'Registered Voter (Binangonan)' | 'Non-Voter';
   isLoggedIn: boolean;
+  createdAt?: string;
 }
 
 export interface WeatherData {
