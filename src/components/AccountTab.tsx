@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { User, Shield, HeartPulse, LogOut, Award, MapPin, Phone, CheckCircle2, Edit3, Key, Calendar, Briefcase, Users, Heart, Save, X, Activity, Vote } from 'lucide-react';
+import { User, Shield, HeartPulse, LogOut, Award, MapPin, Phone, CheckCircle2, Edit3, Key, Calendar, Briefcase, Users, Heart, Save, X, Activity, Vote, QrCode, Printer } from 'lucide-react';
 import { UserProfile } from '../types';
 import { BARANGAYS_LIST } from '../data/binangonanData';
 import { useLanguage } from '../context/LanguageContext';
+import { ResidentDigitalIDModal } from './ResidentDigitalIDModal';
+import { updateAccountProfile } from '../services/accountStore';
 
 interface AccountTabProps {
   user: UserProfile;
@@ -13,10 +15,12 @@ interface AccountTabProps {
 export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdateUser }) => {
   const { t } = useLanguage();
   const [isEditing, setIsEditing] = useState(false);
+  const [showDigitalIdModal, setShowDigitalIdModal] = useState(false);
   const [editForm, setEditForm] = useState<UserProfile>(user);
 
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
+    updateAccountProfile(editForm);
     if (onUpdateUser) {
       onUpdateUser(editForm);
     }
@@ -25,6 +29,14 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
 
   return (
     <div className="space-y-4 pb-12 font-sans">
+      {/* Digital ID Modal Trigger */}
+      {showDigitalIdModal && (
+        <ResidentDigitalIDModal
+          user={user}
+          onClose={() => setShowDigitalIdModal(false)}
+        />
+      )}
+
       {/* Blue & White Official Binangonan Digital Resident ID Card */}
       <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-sky-800 text-white rounded-3xl p-5 border-2 border-blue-400 shadow-lg space-y-4 relative overflow-hidden">
         {/* Background watermark badge */}
@@ -83,6 +95,17 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
               <span className="hidden sm:inline">{t('Log Out', 'Log Out')}</span>
             </button>
           </div>
+        </div>
+
+        {/* Action Button: Show Official Digital ID Pass */}
+        <div className="relative z-10 pt-1">
+          <button
+            onClick={() => setShowDigitalIdModal(true)}
+            className="w-full py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg transition-all border-2 border-amber-200"
+          >
+            <QrCode className="w-5 h-5 text-slate-900" />
+            <span>{t('TINGNAN AT I-PRINT ANG RESIDENT DIGITAL ID PASS (QR CODE)', 'VIEW & PRINT DIGITAL RESIDENT ID PASS')}</span>
+          </button>
         </div>
 
         {/* Resident ID Details & Primary Key */}

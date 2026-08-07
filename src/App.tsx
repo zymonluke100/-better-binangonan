@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavTab, ResidentReport, UserProfile } from './types';
 import { useLanguage } from './context/LanguageContext';
+import { getActiveSession, saveCurrentSession } from './services/accountStore';
 import {
   INITIAL_WEATHER,
   INITIAL_FUEL_PRICES,
@@ -51,34 +52,13 @@ export default function App() {
     localStorage.setItem('binangonan_theme', theme);
   }, [theme]);
 
-  // User state - Pre-logged in with Senior Demo account for instant ease of use!
-  const [user, setUser] = useState<UserProfile | null>({
-    residentId: 'BNG-2026-SR-7890',
-    name: 'Lolo Juan Dela Cruz',
-    firstName: 'Juan',
-    lastName: 'Dela Cruz',
-    email: 'juan.delacruz@binangonan.ph',
-    barangay: 'Brgy. Calumpang, Binangonan',
-    address: '124 Sitio Libis, Brgy. Calumpang, Binangonan, Rizal',
-    birthDate: '1958-04-12',
-    age: 68,
-    gender: 'Male',
-    civilStatus: 'Widowed',
-    occupation: 'Retired Public School Teacher',
-    contactNumber: '0918-123-4567',
-    emergencyContactName: 'Maria Cruz (Anak)',
-    emergencyContactPhone: '0917-555-9081',
-    bloodType: 'O+',
-    philHealthNo: '12-05981248-9',
-    householdSize: 4,
-    numDependents: 2,
-    sector: 'Senior Citizen',
-    isSeniorCitizen: true,
-    seniorIdNumber: 'BNG-2026-SR-7890',
-    voterStatus: 'Registered Voter (Binangonan)',
-    isLoggedIn: true,
-    createdAt: '2026-01-15'
-  });
+  // User state - Loaded from persistent account store or default session
+  const [user, setUser] = useState<UserProfile | null>(() => getActiveSession());
+
+  const handleLogout = () => {
+    saveCurrentSession(null);
+    setUser(null);
+  };
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -196,7 +176,7 @@ export default function App() {
         {activeTab === 'account' && (
           <AccountTab
             user={user}
-            onLogout={() => setUser(null)}
+            onLogout={handleLogout}
             onUpdateUser={(updated) => setUser(updated)}
           />
         )}

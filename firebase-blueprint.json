@@ -1,0 +1,47 @@
+{
+  "entities": {
+    "users": {
+      "title": "Users",
+      "description": "Registered resident accounts in Binangonan, Rizal LGU database",
+      "type": "object",
+      "properties": {
+        "residentId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "barangay": { "type": "string" },
+        "address": { "type": "string" },
+        "birthDate": { "type": "string" },
+        "age": { "type": "number" },
+        "gender": { "type": "string" },
+        "civilStatus": { "type": "string" },
+        "occupation": { "type": "string" },
+        "contactNumber": { "type": "string" },
+        "emergencyContactName": { "type": "string" },
+        "emergencyContactPhone": { "type": "string" },
+        "bloodType": { "type": "string" },
+        "sector": { "type": "string" },
+        "isSeniorCitizen": { "type": "boolean" },
+        "voterStatus": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["residentId", "name", "email", "barangay"]
+    },
+    "reports": {
+      "title": "Resident Community Reports",
+      "description": "Official incident and community service reports submitted by citizens",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "barangay": { "type": "string" },
+        "address": { "type": "string" },
+        "status": { "type": "string" },
+        "likes": { "type": "number" },
+        "residentId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["title", "category", "description", "barangay"]
+    }
+  }
+}

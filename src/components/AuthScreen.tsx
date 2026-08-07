@@ -3,6 +3,7 @@ import { Shield, UserCheck, Heart, LogIn, ArrowRight, Sparkles, CheckCircle2, Ma
 import { UserProfile } from '../types';
 import { BARANGAYS_LIST } from '../data/binangonanData';
 import { useLanguage } from '../context/LanguageContext';
+import { registerAccount, authenticateAccount } from '../services/accountStore';
 
 interface AuthScreenProps {
   onLogin: (user: UserProfile) => void;
@@ -27,6 +28,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
   const [bloodType, setBloodType] = useState('O+');
   const [voterStatus, setVoterStatus] = useState<'Registered Voter (Binangonan)' | 'Non-Voter'>('Registered Voter (Binangonan)');
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const generatePrimaryKey = (sectorType: string) => {
     const randomNum = Math.floor(10000 + Math.random() * 90000);
@@ -49,8 +51,28 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
 
   const handleCustomSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage('');
+    setSuccessMessage('');
+
     if (!email) {
-      setErrorMessage('Paki-lagay po ang inyong Email Address.');
+      setErrorMessage(t('Paki-lagay po ang inyong Email Address.', 'Please enter your Email Address.'));
+      return;
+    }
+
+    if (!isRegisterMode) {
+      // LOG IN MODE
+      const res = authenticateAccount(email, password || 'password123');
+      if (res.success && res.profile) {
+        onLogin(res.profile);
+      } else {
+        setErrorMessage(res.message);
+      }
+      return;
+    }
+
+    // REGISTER MODE
+    if (!password || password.length < 4) {
+      setErrorMessage(t('Maglagay po ng password na may hindi bababa sa 4 na karakter.', 'Please enter a password with at least 4 characters.'));
       return;
     }
 
@@ -67,17 +89,17 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
         .join(' ');
     }
 
-    onLogin({
-      residentId: residentPrimaryKey, // Primary key assigned
+    const newProfile: UserProfile = {
+      residentId: residentPrimaryKey,
       name: finalName || 'Binangonan Resident',
-      email: email,
+      email: email.trim(),
       barangay: barangay.startsWith('Brgy.') ? barangay : `Brgy. ${barangay}`,
       address: address || `Sitio Proper, ${barangay}, Binangonan, Rizal`,
       birthDate: birthDate,
       age: calculatedAge,
       gender: gender,
       civilStatus: civilStatus,
-      occupation: occupation || 'Resident / Private Practitioner',
+      occupation: occupation || 'Resident / Citizen',
       contactNumber: contactNumber || '0917-555-0192',
       emergencyContactName: emergencyContactName || 'Kamag-anak / Kapamilya',
       emergencyContactPhone: emergencyContactPhone || '0917-999-0000',
@@ -88,89 +110,29 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
       voterStatus: voterStatus,
       isLoggedIn: true,
       createdAt: new Date().toISOString().split('T')[0]
-    });
+    };
+
+    const result = registerAccount(newProfile, password);
+    if (result.success && result.account) {
+      setSuccessMessage(result.message);
+      setTimeout(() => {
+        onLogin(result.account!.profile);
+      }, 500);
+    } else {
+      setErrorMessage(result.message);
+    }
   };
 
   const handleDemoLogin = (type: 'senior' | 'resident' | 'limbon') => {
     if (type === 'senior') {
-      onLogin({
-        residentId: 'BNG-2026-SR-7890',
-        name: 'Lolo Juan Dela Cruz',
-        firstName: 'Juan',
-        lastName: 'Dela Cruz',
-        email: 'juan.delacruz@binangonan.ph',
-        barangay: 'Brgy. Calumpang, Binangonan',
-        address: '124 Sitio Libis, Brgy. Calumpang, Binangonan, Rizal',
-        birthDate: '1958-04-12',
-        age: 68,
-        gender: 'Male',
-        civilStatus: 'Widowed',
-        occupation: 'Retired Teacher',
-        contactNumber: '0918-123-4567',
-        emergencyContactName: 'Maria Cruz (Anak)',
-        emergencyContactPhone: '0917-555-9081',
-        bloodType: 'O+',
-        householdSize: 4,
-        numDependents: 2,
-        sector: 'Senior Citizen',
-        isSeniorCitizen: true,
-        seniorIdNumber: 'BNG-2026-SR-7890',
-        voterStatus: 'Registered Voter (Binangonan)',
-        isLoggedIn: true,
-        createdAt: '2026-01-15'
-      });
+      const res = authenticateAccount('juan.delacruz@binangonan.ph', 'password123');
+      if (res.profile) onLogin(res.profile);
     } else if (type === 'limbon') {
-      onLogin({
-        residentId: 'BNG-2026-RES-40118',
-        name: 'Pedro Unida (Limbon-limbon)',
-        firstName: 'Pedro',
-        lastName: 'Unida',
-        email: 'pedro.limbon@binangonan.ph',
-        barangay: 'Brgy. Limbon-limbon (Mainland)',
-        address: 'Purok 2 Coastal Road (Between Pila-pila & Ithan), Brgy. Limbon-limbon, Binangonan, Rizal',
-        birthDate: '1985-11-20',
-        age: 40,
-        gender: 'Male',
-        civilStatus: 'Married',
-        occupation: 'Fisherman & Local Craftsman',
-        contactNumber: '0919-888-2341',
-        emergencyContactName: 'Elena Unida (Asawa)',
-        emergencyContactPhone: '0919-888-2342',
-        bloodType: 'A+',
-        householdSize: 5,
-        numDependents: 3,
-        sector: 'Regular Resident',
-        isSeniorCitizen: false,
-        voterStatus: 'Registered Voter (Binangonan)',
-        isLoggedIn: true,
-        createdAt: '2026-02-01'
-      });
+      const res = authenticateAccount('pedro.limbon@binangonan.ph', 'password123');
+      if (res.profile) onLogin(res.profile);
     } else {
-      onLogin({
-        residentId: 'BNG-2026-RES-98214',
-        name: 'Maria Santos',
-        firstName: 'Maria',
-        lastName: 'Santos',
-        email: 'maria.santos@binangonan.ph',
-        barangay: 'Brgy. Darangan, Binangonan',
-        address: 'Blk 5 Lot 12 Manila East Road, Brgy. Darangan, Binangonan',
-        birthDate: '1995-08-24',
-        age: 30,
-        gender: 'Female',
-        civilStatus: 'Married',
-        occupation: 'Store Manager',
-        contactNumber: '0920-987-6543',
-        emergencyContactName: 'Jose Santos (Asawa)',
-        emergencyContactPhone: '0920-987-6000',
-        bloodType: 'B+',
-        householdSize: 3,
-        numDependents: 1,
-        sector: 'Regular Resident',
-        isSeniorCitizen: false,
-        voterStatus: 'Registered Voter (Binangonan)',
-        isLoggedIn: true,
-        createdAt: '2026-03-10'
-      });
+      const res = authenticateAccount('maria.santos@binangonan.ph', 'password123');
+      if (res.profile) onLogin(res.profile);
     }
   };
 
@@ -271,6 +233,13 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
               <div className="p-3 bg-red-100 dark:bg-red-950/60 border border-red-300 dark:border-red-800 text-red-800 dark:text-red-300 rounded-xl text-xs font-bold flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errorMessage}</span>
+              </div>
+            )}
+
+            {successMessage && (
+              <div className="p-3 bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 rounded-xl text-xs font-bold flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+                <span>{successMessage}</span>
               </div>
             )}
 
