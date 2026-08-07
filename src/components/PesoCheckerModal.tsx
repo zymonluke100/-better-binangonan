@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { DollarSign, X, RefreshCw, TrendingDown, ArrowRightLeft } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface PesoCheckerModalProps {
   onClose: () => void;
 }
 
 export const PesoCheckerModal: React.FC<PesoCheckerModalProps> = ({ onClose }) => {
+  const { t } = useLanguage();
   const [amount, setAmount] = useState<number>(100);
   const [selectedCurrency, setSelectedCurrency] = useState<'USD' | 'EUR' | 'SGD' | 'JPY' | 'SAR'>('USD');
 
@@ -29,8 +31,8 @@ export const PesoCheckerModal: React.FC<PesoCheckerModalProps> = ({ onClose }) =
               <DollarSign className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-base text-white">PESO RATE CHECKER</h3>
-              <p className="text-[11px] text-emerald-200">Better Binangonan Reference Exchange</p>
+              <h3 className="font-bold text-base text-white">{t('KUMPAS SA PALITAN NG PISO (OFW)', 'PESO EXCHANGE RATE CHECKER')}</h3>
+              <p className="text-[11px] text-emerald-200">{t('Mabilis na Palitan at Remittance Calculator', 'Fast OFW Remittance Rate Calculator')}</p>
             </div>
           </div>
 

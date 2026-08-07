@@ -1,6 +1,7 @@
 import React from 'react';
 import { CloudRain, Sun, Wind, Droplets, Eye, X, Umbrella, AlertTriangle } from 'lucide-react';
 import { WeatherData } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface WeatherModalProps {
   weather: WeatherData;
@@ -8,6 +9,7 @@ interface WeatherModalProps {
 }
 
 export const WeatherModal: React.FC<WeatherModalProps> = ({ weather, onClose }) => {
+  const { t } = useLanguage();
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
@@ -17,8 +19,8 @@ export const WeatherModal: React.FC<WeatherModalProps> = ({ weather, onClose }) 
               <CloudRain className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-base text-white">Binangonan Weather Advisory</h3>
-              <p className="text-[11px] text-sky-200">Rizal Coastal & Lake Weather Update</p>
+              <h3 className="font-bold text-base text-white">{t('Ulat sa Panahon sa Binangonan', 'Binangonan Weather Advisory')}</h3>
+              <p className="text-[11px] text-sky-200">{t('Ulat sa Baybayin at Lawa ng Laguna', 'Rizal Coastal & Lake Weather Update')}</p>
             </div>
           </div>
 

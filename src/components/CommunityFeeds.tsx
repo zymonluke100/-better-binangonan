@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Radio, Navigation, Megaphone, PlusCircle, ThumbsUp, AlertCircle, CheckCircle, Clock, MapPin, Filter, Search, Camera, X } from 'lucide-react';
 import { Announcement, TrafficReport, ResidentReport } from '../types';
 import { BARANGAYS_LIST } from '../data/binangonanData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CommunityFeedsProps {
   announcements: Announcement[];
@@ -18,6 +19,7 @@ export const CommunityFeeds: React.FC<CommunityFeedsProps> = ({
   onAddReport,
   onUpvoteReport,
 }) => {
+  const { t } = useLanguage();
   const [filterCategory, setFilterCategory] = useState<'All' | 'Traffic' | 'LGU' | 'Citizen'>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
@@ -60,11 +62,11 @@ export const CommunityFeeds: React.FC<CommunityFeedsProps> = ({
           <div className="flex items-center gap-2">
             <Radio className="w-5 h-5 text-sky-600 dark:text-sky-400 animate-pulse" />
             <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
-              Binangonan Local Updates & Feeds
+              {t('Mga Balita at Ulat sa Binangonan', 'Binangonan Local Updates & Feeds')}
             </h2>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Real-time community alerts, traffic logs, and citizen reports
+            {t('Kasalukuyang balita sa bayan, ulat sa kalsada, at abiso mula sa LGU', 'Real-time community alerts, traffic logs, and citizen reports')}
           </p>
         </div>
 
@@ -73,7 +75,7 @@ export const CommunityFeeds: React.FC<CommunityFeedsProps> = ({
           className="flex items-center justify-center gap-2 px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold shadow-xs transition-all shrink-0"
         >
           <PlusCircle className="w-4 h-4" />
-          <span>Report an Incident</span>
+          <span>{t('Mag-ulat ng Insidente', 'Report an Incident')}</span>
         </button>
       </div>
 
@@ -83,7 +85,7 @@ export const CommunityFeeds: React.FC<CommunityFeedsProps> = ({
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Search updates by keyword, road, or barangay..."
+            placeholder={t('Maghanap ng balita, kalsada, o barangay...', 'Search updates by keyword, road, or barangay...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-hidden focus:border-sky-500"
@@ -101,7 +103,13 @@ export const CommunityFeeds: React.FC<CommunityFeedsProps> = ({
                   : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300'
               }`}
             >
-              {cat === 'LGU' ? 'LGU Advisories' : cat === 'Citizen' ? 'Citizen Reports' : cat}
+              {cat === 'All'
+                ? t('Lahat', 'All')
+                : cat === 'Traffic'
+                ? t('Trapiko', 'Traffic')
+                : cat === 'LGU'
+                ? t('Abiso ng LGU', 'LGU Advisories')
+                : t('Ulat ng Residente', 'Citizen Reports')}
             </button>
           ))}
         </div>

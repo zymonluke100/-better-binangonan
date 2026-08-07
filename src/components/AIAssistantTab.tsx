@@ -59,7 +59,7 @@ export const AIAssistantTab: React.FC = () => {
       const res = await fetch('/api/binangonan/ai-assistant', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: query }),
+        body: JSON.stringify({ message: query, language }),
       });
 
       const data = await res.json();

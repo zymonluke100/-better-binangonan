@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Shield, UserCheck, Heart, LogIn, ArrowRight, Sparkles, CheckCircle2, Mail, Key, User, MapPin, Phone, Calendar, HeartPulse, UserPlus, AlertCircle } from 'lucide-react';
 import { UserProfile } from '../types';
 import { BARANGAYS_LIST } from '../data/binangonanData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface AuthScreenProps {
   onLogin: (user: UserProfile) => void;
 }
 
 export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
+  const { t, language } = useLanguage();
   const [isRegisterMode, setIsRegisterMode] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -182,13 +184,13 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white uppercase">
-            BAYAN NG BINANGONAN
+            {t('BAYAN NG BINANGONAN', 'MUNICIPALITY OF BINANGONAN')}
           </h1>
           <p className="text-sm font-bold text-blue-100 bg-blue-900/40 py-1 px-3 rounded-full inline-block">
-            MDRRMO & Resident Official App
+            {t('MDRRMO & Opisyal na Resident App', 'MDRRMO & Official Resident App')}
           </p>
           <p className="text-xs text-blue-100 font-medium pt-1">
-            Blue & White Senior-Friendly Access Portal with Primary Resident ID
+            {t('Senior-Friendly Access Portal na may Primary Resident ID', 'Senior-Friendly Access Portal with Primary Resident ID')}
           </p>
         </div>
 
@@ -198,11 +200,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
           <div className="bg-blue-50 dark:bg-slate-800/80 border-2 border-blue-300 dark:border-blue-700 rounded-2xl p-4 space-y-3">
             <div className="flex items-center gap-2 text-blue-900 dark:text-blue-200 font-bold text-sm">
               <Sparkles className="w-5 h-5 text-blue-600 dark:text-sky-400 shrink-0" />
-              <span>1-TAP RESIDENT PROFILE EVALUATION SAMPLES:</span>
+              <span>{t('1-TAP HALIMBAWA NG RESIDENT PROFILE:', '1-TAP RESIDENT PROFILE DEMO SAMPLES:')}</span>
             </div>
             
             <p className="text-xs text-blue-800 dark:text-slate-300 leading-relaxed font-medium">
-              Agad na pumasok bilang official verified resident gamit ang halimbawang Primary Resident IDs:
+              {t('Agad na pumasok bilang verified resident gamit ang halimbawang Primary Resident IDs:', 'Instantly log in as a verified resident using sample Primary Resident IDs:')}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -221,7 +223,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
                 className="w-full py-2.5 px-3 bg-emerald-700 hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white rounded-xl font-black text-xs shadow-md flex items-center justify-center gap-1.5 border border-emerald-500 transition-all transform active:scale-95"
               >
                 <MapPin className="w-4 h-4 shrink-0" />
-                <span>📍 Brgy. Limbon-limbon (Mainland)</span>
+                <span>📍 Brgy. Limbon-limbon</span>
               </button>
 
               <button
@@ -247,7 +249,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
               }`}
             >
               <LogIn className="w-4 h-4" />
-              <span>QUICK LOG IN</span>
+              <span>{t('MABILIS NA LOG IN', 'QUICK LOG IN')}</span>
             </button>
             <button
               type="button"
@@ -259,7 +261,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
               }`}
             >
               <UserPlus className="w-4 h-4" />
-              <span>REGISTER WITH PRIMARY ID</span>
+              <span>{t('MAG-REHISTRO NG ID', 'REGISTER WITH ID')}</span>
             </button>
           </div>
 
@@ -276,10 +278,13 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
               <div className="p-3 bg-blue-50 dark:bg-slate-800/90 rounded-2xl border border-blue-200 dark:border-slate-700 space-y-1 text-xs">
                 <div className="flex items-center gap-1.5 text-blue-900 dark:text-blue-200 font-bold">
                   <Key className="w-4 h-4 text-blue-600 dark:text-sky-400" />
-                  <span>AUTOMATIC RESIDENT PRIMARY KEY (UNIQUE ID):</span>
+                  <span>{t('AWTOMATIKONG PRIMARY KEY (UNIQUE RESIDENT ID):', 'AUTOMATIC PRIMARY KEY (UNIQUE RESIDENT ID):')}</span>
                 </div>
                 <p className="text-slate-600 dark:text-slate-300">
-                  Ang inyong account ay awtomatikong bibigyan ng unique <strong>Primary Key / Binangonan Resident ID</strong> (hal. <code className="bg-blue-100 dark:bg-slate-700 px-1 py-0.5 rounded text-blue-900 dark:text-sky-300 font-mono">BNG-2026-RES-XXXXX</code>) para sa legal at official LGU verification.
+                  {t(
+                    'Ang inyong account ay awtomatikong bibigyan ng unique Primary Key / Binangonan Resident ID para sa legal at official LGU verification.',
+                    'Your account will be automatically assigned a unique Primary Key / Binangonan Resident ID for official LGU verification.'
+                  )}
                 </p>
               </div>
             )}
@@ -287,11 +292,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
             {isRegisterMode && (
               <div>
                 <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                  👤 Buong Pangalan (Full Name):
+                  👤 {t('Buong Pangalan:', 'Full Name:')}
                 </label>
                 <input
                   type="text"
-                  placeholder="Halimbawa: Juan dela Cruz"
+                  placeholder={t('Halimbawa: Juan dela Cruz', 'Example: Juan dela Cruz')}
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="w-full p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 focus:border-blue-600 dark:focus:border-blue-400 rounded-xl font-semibold text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none"
@@ -301,11 +306,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
 
             <div>
               <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                📧 Email Address / Gmail Account:
+                📧 {t('Email Address / Gmail Account:', 'Email Address / Gmail Account:')}
               </label>
               <input
                 type="email"
-                placeholder="Halimbawa: resident@binangonan.ph"
+                placeholder="resident@binangonan.ph"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 focus:border-blue-600 dark:focus:border-blue-400 rounded-xl font-semibold text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none"
@@ -327,21 +332,21 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
 
             <div>
               <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                📍 Barangay sa Binangonan (40 Complete Barangays):
+                📍 {t('Barangay sa Binangonan (40 Complete Barangays):', 'Barangay in Binangonan (40 Barangays):')}
               </label>
               <select
                 value={barangay}
                 onChange={(e) => setBarangay(e.target.value)}
                 className="w-full p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 focus:border-blue-600 dark:focus:border-blue-400 rounded-xl font-bold text-sm text-slate-900 dark:text-white focus:outline-none"
               >
-                <optgroup label="Mainland Barangays (23)" className="dark:bg-slate-800 dark:text-white">
+                <optgroup label={t("Mainland Barangays (23)", "Mainland Barangays (23)")} className="dark:bg-slate-800 dark:text-white">
                   {BARANGAYS_LIST.filter(b => b.locationType === 'Mainland').map(b => (
                     <option key={b.name} value={`Brgy. ${b.name}`} className="dark:bg-slate-800 dark:text-white">
                       Brgy. {b.name}
                     </option>
                   ))}
                 </optgroup>
-                <optgroup label="Talim Island Barangays (17)" className="dark:bg-slate-800 dark:text-white">
+                <optgroup label={t("Talim Island Barangays (17)", "Talim Island Barangays (17)")} className="dark:bg-slate-800 dark:text-white">
                   {BARANGAYS_LIST.filter(b => b.locationType === 'Talim Island').map(b => (
                     <option key={b.name} value={`Brgy. ${b.name}`} className="dark:bg-slate-800 dark:text-white">
                       Brgy. {b.name} (Talim Island)
@@ -355,11 +360,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
               <>
                 <div>
                   <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                    🏠 Street / Sitio / Complete House Address:
+                    🏠 {t('Kalsada / Sitio / Kumpletong Tirahan:', 'Street / Sitio / Complete Address:')}
                   </label>
                   <input
                     type="text"
-                    placeholder="Halimbawa: Purok 2, Coastal Road / Sitio Libis"
+                    placeholder={t('Halimbawa: Purok 2, Coastal Road / Sitio Libis', 'Example: Purok 2, Coastal Road')}
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     className="w-full p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 focus:border-blue-600 dark:focus:border-blue-400 rounded-xl font-semibold text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none"
@@ -369,7 +374,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                      📱 Contact Number:
+                      📱 {t('Kumpas / Telepono:', 'Contact Number:')}
                     </label>
                     <input
                       type="text"
@@ -382,7 +387,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
 
                   <div>
                     <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                      📅 Petsa ng Kapanganakan (Birth Date):
+                      📅 {t('Petsa ng Kapanganakan (Birth Date):', 'Birth Date:')}
                     </label>
                     <input
                       type="date"
@@ -396,34 +401,34 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                      🏷️ Sektor / Kategorya:
+                      🏷️ {t('Sektor / Kategorya:', 'Sector / Category:')}
                     </label>
                     <select
                       value={sector}
                       onChange={(e) => setSector(e.target.value as any)}
                       className="w-full p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 focus:border-blue-600 dark:focus:border-blue-400 rounded-xl font-bold text-sm text-slate-900 dark:text-white focus:outline-none"
                     >
-                      <option value="Regular Resident">Regular Resident</option>
-                      <option value="Senior Citizen">Senior Citizen (OSCA Member)</option>
-                      <option value="PWD">Person with Disability (PWD)</option>
-                      <option value="Solo Parent">Solo Parent</option>
-                      <option value="Youth / SK">Kabataan / Youth (15-24 y/o)</option>
+                      <option value="Regular Resident">{t('Pangkaraniwang Residente', 'Regular Resident')}</option>
+                      <option value="Senior Citizen">{t('Senior Citizen (OSCA)', 'Senior Citizen (OSCA)')}</option>
+                      <option value="PWD">{t('May Kapansanan (PWD)', 'Person with Disability (PWD)')}</option>
+                      <option value="Solo Parent">{t('Solo Parent', 'Solo Parent')}</option>
+                      <option value="Youth / SK">{t('Kabataan / Youth (15-24)', 'Youth / SK (15-24)')}</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                      💍 Civil Status:
+                      💍 {t('Sibil na Katayuan (Civil Status):', 'Civil Status:')}
                     </label>
                     <select
                       value={civilStatus}
                       onChange={(e) => setCivilStatus(e.target.value as any)}
                       className="w-full p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 focus:border-blue-600 dark:focus:border-blue-400 rounded-xl font-bold text-sm text-slate-900 dark:text-white focus:outline-none"
                     >
-                      <option value="Single">Single</option>
-                      <option value="Married">Married</option>
-                      <option value="Widowed">Widowed</option>
-                      <option value="Separated">Separated</option>
+                      <option value="Single">{t('Walang Asawa (Single)', 'Single')}</option>
+                      <option value="Married">{t('May Asawa (Married)', 'Married')}</option>
+                      <option value="Widowed">{t('Balo (Widowed)', 'Widowed')}</option>
+                      <option value="Separated">{t('Hiwalay (Separated)', 'Separated')}</option>
                     </select>
                   </div>
                 </div>
@@ -431,11 +436,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                      🚨 Emergency Contact Person:
+                      🚨 {t('Tawag sa Emergency (Contact Person):', 'Emergency Contact Person:')}
                     </label>
                     <input
                       type="text"
-                      placeholder="Pangalan ng Kamag-anak"
+                      placeholder={t('Pangalan ng Kamag-anak', 'Relative / Contact Name')}
                       value={emergencyContactName}
                       onChange={(e) => setEmergencyContactName(e.target.value)}
                       className="w-full p-3 bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-700 focus:border-blue-600 dark:focus:border-blue-400 rounded-xl font-semibold text-sm text-slate-900 dark:text-white focus:outline-none"
@@ -444,7 +449,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
 
                   <div>
                     <label className="block text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">
-                      ☎️ Emergency Hotline:
+                      ☎️ {t('Telepono sa Emergency:', 'Emergency Phone:')}
                     </label>
                     <input
                       type="text"
@@ -462,7 +467,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
               type="submit"
               className="w-full py-3.5 bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-2xl font-black text-base shadow-lg flex items-center justify-center gap-2 border-2 border-blue-900 dark:border-blue-400 transition-all mt-4"
             >
-              <span>{isRegisterMode ? 'GUMAWA NG ACCOUNT AT PRIMARY RESIDENT ID' : 'MAG-LOG IN SA AKING ACCOUNT'}</span>
+              <span>{isRegisterMode ? t('GUMAWA NG ACCOUNT AT RESIDENT ID', 'CREATE ACCOUNT & RESIDENT ID') : t('MAG-LOG IN SA AKING ACCOUNT', 'LOG IN TO MY ACCOUNT')}</span>
               <ArrowRight className="w-5 h-5" />
             </button>
           </form>
@@ -470,7 +475,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
           {/* Senior friendly notice */}
           <div className="pt-2 text-center text-xs text-slate-500 dark:text-slate-400 font-medium">
             <p>
-              🔒 Ligtas at Opisyal na Sistema ng Pamahalaang Bayan ng Binangonan, Rizal.
+              🔒 {t('Ligtas at Opisyal na Portal para sa mga Mamamayan ng Binangonan, Rizal.', 'Secure & Official Citizen Portal for Binangonan, Rizal.')}
             </p>
           </div>
         </div>

@@ -28,7 +28,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
     { id: 'services', label: t('LGU Offices', 'LGU Directory'), icon: Building2 },
     { id: 'updates', label: t('Balita & Reports', 'News & Reports'), icon: Radio, badge: unresolvedReportsCount > 0 ? unresolvedReportsCount : null },
     { id: 'emergency', label: t('Emergency', 'Emergency'), icon: AlertTriangle },
-    { id: 'account', label: t('Akaun', 'Account'), icon: UserCheck },
+    { id: 'account', label: t('Aking Profile', 'Account'), icon: UserCheck },
   ];
 
   return (

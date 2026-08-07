@@ -37,21 +37,28 @@ async function startServer() {
   // API Route: AI Assistant for Binangonan Residents
   app.post('/api/binangonan/ai-assistant', async (req, res) => {
     try {
-      const { message, history } = req.body;
+      const { message, language } = req.body;
 
       if (!message || typeof message !== 'string') {
         res.status(400).json({ error: 'Message text is required' });
         return;
       }
 
+      const isEnglish = language === 'english';
+
       const apiKey = process.env.GEMINI_API_KEY;
       if (!apiKey) {
         // Fallback response if GEMINI_API_KEY is not configured yet
         res.json({
-          reply: `Mabuhay! I am Binangonan's Resident AI Assistant. To get full live AI responses, please set your GEMINI_API_KEY in the Secrets settings. In the meantime:
+          reply: isEnglish
+            ? `Welcome! I am Binangonan's Resident AI Assistant. To get full live AI responses, please set your GEMINI_API_KEY in the Secrets settings. In the meantime:
 - For Emergency Hotline: MDRRMO (02) 8652-1875 / Police (02) 8652-0123 / Hospital (02) 8652-0112.
 - For Cedula / Barangay Clearance: Visit Municipal Hall Treasury in Calumpang or your local Barangay Hall.
 - For Talim Island Ferry: Motorized bancas depart regularly from Pritil Port (Libis) and Pila-pila Port.`
+            : `Mabuhay! Ako ang Resident AI Assistant ng Binangonan. Para sa live AI responses, pakilagay ang GEMINI_API_KEY sa Secrets settings. Habang wala pa:
+- Emergency Hotline: MDRRMO (02) 8652-1875 / Pulis (02) 8652-0123 / Ospital (02) 8652-0112.
+- Para sa Cedula / Barangay Clearance: Pumunta sa Municipal Hall Treasury sa Calumpang o sa inyong Barangay Hall.
+- Sakayan ng Bangka papuntang Talim Island: Regular ang biyahe sa Pritil Port (Libis) at Pila-pila Port.`
         });
         return;
       }
@@ -59,8 +66,10 @@ async function startServer() {
       const ai = getAIClient();
 
       const systemInstruction = `You are "Binangonan AI Assistant" (Gabay Binangoneño), an official & friendly AI helper for residents of Binangonan, Rizal, Philippines.
+Language Instruction: CRITICAL - Always respond strictly in ${isEnglish ? 'ENGLISH' : 'TAGALOG / FILIPINO'}. Do NOT mix languages unless specifying official place or department names.
+
 Your goals:
-1. Provide accurate, empathetic, and clear guidance in Tagalog, English, or Taglish (whichever language the user speaks).
+1. Provide accurate, empathetic, and clear guidance in ${isEnglish ? 'English' : 'Tagalog'}.
 2. Assist residents with questions regarding:
    - Municipal LGU services (Cedula, Barangay clearance, Business permit, RPT / Amortization, Senior Citizen ID, Solo Parent).
    - Emergency hotlines (MDRRMO rescue, Police station, BFP fire station, Pag-asa hospital).

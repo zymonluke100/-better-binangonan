@@ -1,11 +1,13 @@
 import React from 'react';
 import { Ship, X, Clock, AlertTriangle, ShieldCheck, MapPin } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface FerryScheduleModalProps {
   onClose: () => void;
 }
 
 export const FerryScheduleModal: React.FC<FerryScheduleModalProps> = ({ onClose }) => {
+  const { t } = useLanguage();
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
@@ -15,8 +17,8 @@ export const FerryScheduleModal: React.FC<FerryScheduleModalProps> = ({ onClose 
               <Ship className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-base text-white">Talim Island Ferry & Banca Guide</h3>
-              <p className="text-[11px] text-sky-200">Pritil Port & Pila-pila Port Passenger Departures</p>
+              <h3 className="font-bold text-base text-white">{t('Oras ng Bangka sa Isla ng Talim', 'Talim Island Ferry & Banca Guide')}</h3>
+              <p className="text-[11px] text-sky-200">{t('Pritil Port at Pila-pila Port Biyahe', 'Pritil Port & Pila-pila Port Passenger Departures')}</p>
             </div>
           </div>
 

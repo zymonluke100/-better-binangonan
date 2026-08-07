@@ -1,11 +1,13 @@
 import React from 'react';
 import { Trash2, X, Calendar, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface WasteScheduleModalProps {
   onClose: () => void;
 }
 
 export const WasteScheduleModal: React.FC<WasteScheduleModalProps> = ({ onClose }) => {
+  const { t } = useLanguage();
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
@@ -15,8 +17,8 @@ export const WasteScheduleModal: React.FC<WasteScheduleModalProps> = ({ onClose 
               <Trash2 className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-base text-white">MENRO Waste Collection Schedule</h3>
-              <p className="text-[11px] text-teal-200">Binangonan Municipal Environmental Office</p>
+              <h3 className="font-bold text-base text-white">{t('Oras ng Hakot ng Basura (MENRO)', 'MENRO Waste Collection Schedule')}</h3>
+              <p className="text-[11px] text-teal-200">{t('Tanggapan ng Kalikasan ng Binangonan', 'Binangonan Municipal Environmental Office')}</p>
             </div>
           </div>
 

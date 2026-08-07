@@ -1,12 +1,14 @@
 import React from 'react';
 import { Landmark, X, Calendar, MapPin, Sparkles, Award } from 'lucide-react';
 import { CITY_HISTORY_INFO } from '../data/binangonanData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CityHistoryModalProps {
   onClose: () => void;
 }
 
 export const CityHistoryModal: React.FC<CityHistoryModalProps> = ({ onClose }) => {
+  const { t } = useLanguage();
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-lg max-h-[85vh] shadow-2xl overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-200">
@@ -16,7 +18,7 @@ export const CityHistoryModal: React.FC<CityHistoryModalProps> = ({ onClose }) =
               <Landmark className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-base text-white">{CITY_HISTORY_INFO.title}</h3>
+              <h3 className="font-bold text-base text-white">{t('Kasaysayan ng Binangonan', CITY_HISTORY_INFO.title)}</h3>
               <p className="text-[11px] text-sky-200">{CITY_HISTORY_INFO.subtitle}</p>
             </div>
           </div>

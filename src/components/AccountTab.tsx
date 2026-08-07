@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { User, Shield, HeartPulse, LogOut, Award, MapPin, Phone, CheckCircle2, Edit3, Key, Calendar, Briefcase, Users, Heart, Save, X, Activity, Vote } from 'lucide-react';
 import { UserProfile } from '../types';
 import { BARANGAYS_LIST } from '../data/binangonanData';
+import { useLanguage } from '../context/LanguageContext';
 
 interface AccountTabProps {
   user: UserProfile;
@@ -10,6 +11,7 @@ interface AccountTabProps {
 }
 
 export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdateUser }) => {
+  const { t } = useLanguage();
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState<UserProfile>(user);
 
@@ -69,7 +71,7 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
               title="Edit Profile"
             >
               <Edit3 className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">I-Edit</span>
+              <span className="hidden sm:inline">{t('I-Edit', 'Edit')}</span>
             </button>
 
             <button
@@ -78,7 +80,7 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
               title="Log Out"
             >
               <LogOut className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Log Out</span>
+              <span className="hidden sm:inline">{t('Log Out', 'Log Out')}</span>
             </button>
           </div>
         </div>
@@ -97,7 +99,7 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
 
           <div>
             <span className="text-blue-300 text-[10px] font-bold block uppercase">
-              REGISTERED HOTLINE:
+              {t('REHISTRADONG TELEPONO:', 'REGISTERED PHONE:')}
             </span>
             <span className="text-white font-mono font-bold">
               {user.contactNumber || '0917-555-0192'}
@@ -106,11 +108,11 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
 
           <div className="col-span-2 sm:col-span-1">
             <span className="text-blue-300 text-[10px] font-bold block uppercase">
-              SECTOR & STATUS:
+              {t('SEKTOR AT KATAYUAN:', 'SECTOR & STATUS:')}
             </span>
             <span className="text-emerald-300 font-bold flex items-center gap-1 text-[11px]">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Verified Resident</span>
+              <span>{t('Verified na Residente', 'Verified Resident')}</span>
             </span>
           </div>
         </div>
@@ -121,21 +123,21 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
         <div className="p-4 bg-amber-50 dark:bg-amber-950/40 border-2 border-amber-300 dark:border-amber-800 rounded-2xl space-y-2">
           <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200 font-bold text-sm">
             <Award className="w-5 h-5 text-amber-600 shrink-0" />
-            <span>AKING OSCA SENIOR CITIZEN BENEFITS (BINANGONAN)</span>
+            <span>{t('MGA BENEPISYO SA OSCA SENIOR CITIZEN (BINANGONAN)', 'MY OSCA SENIOR CITIZEN BENEFITS (BINANGONAN)')}</span>
           </div>
 
           <ul className="text-xs text-amber-900 dark:text-amber-100 space-y-1.5 font-medium leading-relaxed pl-1">
             <li className="flex items-start gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span><strong>20% OSCA Discount + 12% VAT Exemption</strong> sa mga gamot at reseta sa Mercury Drug / Southstar Binangonan.</span>
+              <span>{t('20% OSCA Discount + 12% VAT Exemption sa mga gamot at reseta sa Mercury Drug / Southstar Binangonan.', '20% OSCA Discount + 12% VAT Exemption on medicines at Mercury Drug / Southstar Binangonan.')}</span>
             </li>
             <li className="flex items-start gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span><strong>Free Priority Pass & Medical Checkup</strong> sa Pag-asa Hospital at MDRRMO Health Center.</span>
+              <span>{t('Libreng Priority Pass & Medical Checkup sa Pag-asa Hospital at MDRRMO Health Center.', 'Free Priority Pass & Medical Checkup at Pag-asa Hospital and MDRRMO Health Center.')}</span>
             </li>
             <li className="flex items-start gap-1.5">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-              <span><strong>20% Fare Discount</strong> sa mga passenger banca sa Pritil Port at jeepney pabalik ng Angono/Taytay.</span>
+              <span>{t('20% Diskwento sa Pamasahe sa passenger banca sa Pritil Port at jeepney.', '20% Fare Discount on passenger bancas at Pritil Port and jeepneys.')}</span>
             </li>
           </ul>
         </div>
@@ -147,7 +149,7 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
           <div className="flex items-center gap-2">
             <User className="w-5 h-5 text-blue-600 dark:text-sky-400" />
             <h3 className="font-black text-slate-900 dark:text-white text-base uppercase tracking-tight">
-              KUMPLETONG IMPORMASYON SA BUHAY AT PAMAYANAN
+              {t('KUMPLETONG IMPORMASYON SA BUHAY AT PAMAYANAN', 'COMPLETE RESIDENT PROFILE & INFORMATION')}
             </h3>
           </div>
           <button
@@ -158,7 +160,7 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
             className="px-3 py-1.5 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/50 text-blue-800 dark:text-sky-300 font-bold text-xs rounded-xl flex items-center gap-1 transition-all"
           >
             <Edit3 className="w-3.5 h-3.5" />
-            <span>Baguhin / Edit</span>
+            <span>{t('Baguhin / Edit', 'Edit Profile')}</span>
           </button>
         </div>
 
