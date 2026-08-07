@@ -71,10 +71,29 @@ export const INITIAL_TRAFFIC: TrafficReport[] = [
     reportedAt: '12 mins ago',
     notes: 'Normal morning rush traffic.',
     barangay: 'Tagpos'
+  },
+  {
+    id: 'tr-6',
+    location: 'Limbon-limbon Coastal Road (Between Pila-pila & Ithan)',
+    status: 'Smooth',
+    reportedAt: '18 mins ago',
+    notes: 'Smooth traffic along the coastal bypass road connecting Pila-pila and Ithan.',
+    barangay: 'Limbon-limbon'
   }
 ];
 
 export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
+  {
+    id: 'ann-5',
+    title: 'Mainland Coastal Outreach: Brgy. Limbon-limbon, Pila-pila & Ithan Mobile LGU Services',
+    category: 'Community',
+    summary: 'Mobile Mayor’s Office, LCR Civil Registry, and Health Consultations at Brgy. Limbon-limbon Covered Court.',
+    content: 'The Office of the Municipal Mayor in coordination with LCR, MSWDO, and MHO will hold a mobile LGU service outreach at Barangay Limbon-limbon Covered Court (serving Limbon-limbon, Pila-pila, and Ithan) this Friday, 8:00 AM to 3:00 PM. Senior Citizen ID processing, Barangay clearance validation, and free medical consultations will be provided.',
+    date: 'Aug 7, 2026',
+    source: 'Office of the Municipal Mayor',
+    important: true,
+    badge: 'COASTAL OUTREACH'
+  },
   {
     id: 'ann-1',
     title: 'LGU Advisory: Free Medical & Dental Mission at Barangay Bilibiran Gymnasium',
@@ -181,6 +200,16 @@ export const EMERGENCY_CONTACTS: EmergencyContact[] = [
     is24_7: true
   },
   {
+    id: 'em-8',
+    name: 'Brgy. Limbon-limbon Emergency Post & Health Outpost',
+    category: 'Disaster & Rescue',
+    phonePrimary: '0917-101-0024',
+    phoneSecondary: '0919-888-2341',
+    address: 'Limbon-limbon Coastal Road (Between Pila-pila & Ithan), Binangonan, Rizal',
+    description: 'Local barangay emergency hotline, first-aid response, and BDRRMC disaster team for Brgy. Limbon-limbon residents.',
+    is24_7: true
+  },
+  {
     id: 'em-7',
     name: 'Meralco Emergency Line (Rizal Sector)',
     category: 'Utilities',
@@ -213,6 +242,7 @@ export const BARANGAYS_LIST: BarangayInfo[] = [
   { name: 'Kalayaan', captain: 'Hon. Danilo Ramos', contact: '0917-101-0007', locationType: 'Mainland', populationEst: '12,800', hallAddress: 'Kalayaan Avenue, Phase 1' },
   { name: 'Layunan', captain: 'Hon. Pedro Garcia', contact: '0917-101-0008', locationType: 'Mainland', populationEst: '15,300', hallAddress: 'Santa Ursula St, Layunan' },
   { name: 'Libis (Pritil Port)', captain: 'Hon. Antonio Gonzales', contact: '0917-101-0009', locationType: 'Mainland', populationEst: '11,700', hallAddress: 'Pritil Port Road, Libis' },
+  { name: 'Limbon-limbon', captain: 'Hon. Jose Unida', contact: '0917-101-0024', locationType: 'Mainland', populationEst: '3,850', hallAddress: 'Limbon-limbon Coastal Road (Between Pila-pila & Ithan), Binangonan' },
   { name: 'Lunsad', captain: 'Hon. Carmen Mendoza', contact: '0917-101-0010', locationType: 'Mainland', populationEst: '14,100', hallAddress: 'Lunsad Church Street' },
   { name: 'Macamot', captain: 'Hon. Ernesto Castro', contact: '0917-101-0011', locationType: 'Mainland', populationEst: '9,800', hallAddress: 'Macamot Main Road' },
   { name: 'Mahabang Parang', captain: 'Hon. Gabriel Aquial', contact: '0917-101-0012', locationType: 'Mainland', populationEst: '11,200', hallAddress: 'Mahabang Parang Hillside' },
@@ -238,7 +268,6 @@ export const BARANGAYS_LIST: BarangayInfo[] = [
   { name: 'Kasagpan', captain: 'Hon. Noel Arambulo', contact: '0917-102-0004', locationType: 'Talim Island', populationEst: '2,400', hallAddress: 'Kasagpan Waterfront' },
   { name: 'Kaytitinga', captain: 'Hon. Andres Discutido', contact: '0917-102-0016', locationType: 'Talim Island', populationEst: '1,800', hallAddress: 'Kaytitinga Hillside, Talim Island' },
   { name: 'Kinaboogan', captain: 'Hon. Sofia Cequeña', contact: '0917-102-0005', locationType: 'Talim Island', populationEst: '3,100', hallAddress: 'Kinaboogan Seawall' },
-  { name: 'Limbon-limbon', captain: 'Hon. Jose Unida', contact: '0917-102-0018', locationType: 'Talim Island', populationEst: '2,950', hallAddress: 'Limbon-limbon Coastal Road, Talim Island' },
   { name: 'Malakaban', captain: 'Hon. Francisca Gil', contact: '0917-102-0006', locationType: 'Talim Island', populationEst: '2,800', hallAddress: 'Malakaban Bamboo Wharf' },
   { name: 'Pinagdilawan', captain: 'Hon. Gregorio Cervo', contact: '0917-102-0007', locationType: 'Talim Island', populationEst: '1,900', hallAddress: 'Pinagdilawan Cove' },
   { name: 'Pipindan', captain: 'Hon. Honorio Cenidoza', contact: '0917-102-0017', locationType: 'Talim Island', populationEst: '4,100', hallAddress: 'Pipindan Point Light Station' },
@@ -383,6 +412,17 @@ export const INITIAL_CITIZEN_REPORTS: ResidentReport[] = [
     upvotes: 21,
     status: 'In Progress',
     reporterName: 'Marco S.'
+  },
+  {
+    id: 'rep-4',
+    category: 'General',
+    barangay: 'Limbon-limbon (Mainland)',
+    locationDetail: 'Limbon-limbon Coastal Walkway (Between Pila-pila & Ithan)',
+    description: 'Solar streetlights along the coastal walkway scheduled for bulb replacement. Barangay council already notified.',
+    timestamp: '45 mins ago',
+    upvotes: 18,
+    status: 'In Progress',
+    reporterName: 'Pedro Unida (Limbon Resident)'
   }
 ];
 

@@ -124,8 +124,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
         firstName: 'Pedro',
         lastName: 'Unida',
         email: 'pedro.limbon@binangonan.ph',
-        barangay: 'Brgy. Limbon-limbon (Talim Island)',
-        address: 'Purok 2 Seashore, Brgy. Limbon-limbon, Talim Island, Binangonan',
+        barangay: 'Brgy. Limbon-limbon (Mainland)',
+        address: 'Purok 2 Coastal Road (Between Pila-pila & Ithan), Brgy. Limbon-limbon, Binangonan, Rizal',
         birthDate: '1985-11-20',
         age: 40,
         gender: 'Male',
@@ -221,7 +221,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
                 className="w-full py-2.5 px-3 bg-emerald-700 hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white rounded-xl font-black text-xs shadow-md flex items-center justify-center gap-1.5 border border-emerald-500 transition-all transform active:scale-95"
               >
                 <MapPin className="w-4 h-4 shrink-0" />
-                <span>🏝️ Brgy. Limbon-limbon</span>
+                <span>📍 Brgy. Limbon-limbon (Mainland)</span>
               </button>
 
               <button

@@ -70,6 +70,22 @@ export const WasteScheduleModal: React.FC<WasteScheduleModalProps> = ({ onClose 
               </div>
             </div>
           </div>
+
+          <div className="space-y-2">
+            <h4 className="font-bold text-slate-900 dark:text-white text-xs">
+              Zone 3 (Talim Island: Limbon-limbon, Janosa, Subay, Habagatan, Bantan)
+            </h4>
+            <div className="grid grid-cols-2 gap-2">
+              <div className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+                <span className="font-bold text-emerald-600 dark:text-emerald-400 block">Eco-Banca Garbage Boat</span>
+                <span className="text-slate-600 dark:text-slate-300 font-medium text-[11px]">Tuesday & Friday</span>
+              </div>
+              <div className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
+                <span className="font-bold text-sky-600 dark:text-sky-400 block">Coastal Recyclables</span>
+                <span className="text-slate-600 dark:text-slate-300 font-medium text-[11px]">Thursday Morning</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

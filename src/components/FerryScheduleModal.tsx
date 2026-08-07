@@ -63,6 +63,14 @@ export const FerryScheduleModal: React.FC<FerryScheduleModalProps> = ({ onClose 
 
               <div className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-between">
                 <div>
+                  <span className="font-bold text-slate-900 dark:text-white block">Pritil ➔ Brgy. Limbon-limbon Coastal Wharf</span>
+                  <span className="text-[10px] text-slate-500">Every 40 mins • Fare: ₱35.00</span>
+                </div>
+                <span className="text-xs font-mono font-bold text-sky-600 dark:text-sky-400">5:30 AM - 6:00 PM</span>
+              </div>
+
+              <div className="p-2.5 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-between">
+                <div>
                   <span className="font-bold text-slate-900 dark:text-white block">Pritil ➔ Subay / Habagatan</span>
                   <span className="text-[10px] text-slate-500">Hourly departures • Fare: ₱35.00</span>
                 </div>

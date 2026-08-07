@@ -9,11 +9,17 @@ export const CityDirectory: React.FC = () => {
 
   const filteredBarangays = BARANGAYS_LIST.filter((b) => {
     const matchesLoc = locationFilter === 'All' || b.locationType === locationFilter;
+    if (!searchQuery.trim()) return matchesLoc;
+
+    const normalizedQuery = searchQuery.toLowerCase().replace(/[-_\s]+/g, ' ').trim();
+    const normalizedName = b.name.toLowerCase().replace(/[-_\s]+/g, ' ');
+    const normalizedCaptain = b.captain.toLowerCase().replace(/[-_\s]+/g, ' ');
+    const normalizedAddress = b.hallAddress.toLowerCase().replace(/[-_\s]+/g, ' ');
+
     const matchesSearch =
-      !searchQuery ||
-      b.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      b.captain.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      b.hallAddress.toLowerCase().includes(searchQuery.toLowerCase());
+      normalizedName.includes(normalizedQuery) ||
+      normalizedCaptain.includes(normalizedQuery) ||
+      normalizedAddress.includes(normalizedQuery);
     return matchesLoc && matchesSearch;
   });
 
