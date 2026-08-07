@@ -1,0 +1,6 @@
+{
+  "name": "Better Binangonan",
+  "description": "Real-time local updates, community announcements, weather alerts, traffic reports, emergency hotlines, and city directory for Binangonan, Rizal residents.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
