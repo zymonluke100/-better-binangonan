@@ -1,6 +1,7 @@
 import React from 'react';
 import { MapPin, Sun, CloudRain, ShieldCheck } from 'lucide-react';
 import { WeatherData } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface HeaderGreetingProps {
   weather: WeatherData;
@@ -8,11 +9,13 @@ interface HeaderGreetingProps {
 }
 
 export const HeaderGreeting: React.FC<HeaderGreetingProps> = ({ weather, onOpenWeatherModal }) => {
+  const { t } = useLanguage();
+
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Magandang Umaga, Binangoneño!';
-    if (hour < 18) return 'Magandang Hapon, Binangoneño!';
-    return 'Magandang Gabi, Binangoneño!';
+    if (hour < 12) return t('Magandang Umaga, Binangoneño!', 'Good Morning, Binangoneño!');
+    if (hour < 18) return t('Magandang Hapon, Binangoneño!', 'Good Afternoon, Binangoneño!');
+    return t('Magandang Gabi, Binangoneño!', 'Good Evening, Binangoneño!');
   };
 
   return (
@@ -32,7 +35,7 @@ export const HeaderGreeting: React.FC<HeaderGreetingProps> = ({ weather, onOpenW
             {getGreeting()}
           </h2>
           <p className="text-xs text-slate-300 mt-0.5">
-            MDRRMO Updates, Panahon, Hotlines, at LGU Directory.
+            {t('MDRRMO Updates, Panahon, Hotlines, at LGU Directory.', 'MDRRMO Updates, Weather, Emergency Hotlines, & LGU Directory.')}
           </p>
         </div>
 
@@ -52,7 +55,7 @@ export const HeaderGreeting: React.FC<HeaderGreetingProps> = ({ weather, onOpenW
             <div className="flex items-center gap-1.5">
               <span className="text-base font-bold leading-none">{weather.temp}°C</span>
               <span className="text-[10px] px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 rounded font-medium">
-                {weather.rainChance}% Rain
+                {weather.rainChance}% {t('Ulan', 'Rain')}
               </span>
             </div>
             <p className="text-[11px] text-slate-300 line-clamp-1 mt-0.5 font-medium">
@@ -66,7 +69,7 @@ export const HeaderGreeting: React.FC<HeaderGreetingProps> = ({ weather, onOpenW
       <div className="mt-3 pt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
         <div className="flex items-center gap-1.5">
           <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-          <span>Opisyal na LGU Hotline & Emergency Services</span>
+          <span>{t('Opisyal na LGU Hotline & Emergency Services', 'Official LGU Hotline & Emergency Services')}</span>
         </div>
         <span className="font-mono text-[10px] text-slate-400">RIZAL 4th DIST</span>
       </div>

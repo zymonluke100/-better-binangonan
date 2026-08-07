@@ -1,6 +1,7 @@
 import React from 'react';
 import { CloudDrizzle, Fuel, DollarSign, History, Building2, ChevronRight, Navigation } from 'lucide-react';
 import { WeatherData, FuelPrice, TrafficReport } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CityAtAGlanceProps {
   weather: WeatherData;
@@ -27,6 +28,7 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
   onOpenDirectory,
   onSelectTab,
 }) => {
+  const { t } = useLanguage();
   const mainFuel = fuelPrices[0] || { type: 'RON 91 / LITER', price: 62.40, change: '-₱0.50' };
   const heavyTrafficCount = trafficList.filter(t => t.status === 'Heavy' || t.status === 'Standstill').length;
 
@@ -36,10 +38,10 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
-            City at a glance
+            {t('BUOD NG BAYAN NG BINANGONAN', 'City at a Glance')}
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            Current local information and useful metrics
+            {t('Kasalukuyang impormasyon at status ng bayan', 'Current local information and useful metrics')}
           </p>
         </div>
       </div>
@@ -65,10 +67,10 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
               {weather.temp}°C
             </span>
             <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">
-              Local weather
+              {t('Lagay ng Panahon', 'Local Weather')}
             </p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
-              {weather.condition} • Feels {weather.feelsLike}°
+              {weather.condition} • {t('Ramdam', 'Feels')} {weather.feelsLike}°
             </p>
           </div>
         </button>
@@ -97,7 +99,7 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
               </span>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">
-              Mainland Gas Stations
+              {t('Gasolina sa Mainland', 'Mainland Gas Stations')}
             </p>
           </div>
         </button>
@@ -124,7 +126,7 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
               {forex.change}
             </p>
             <p className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 mt-0.5">
-              Peso Rate Checker
+              {t('Palitan ng Piso', 'Peso Rate Checker')}
             </p>
           </div>
         </button>
@@ -141,7 +143,7 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
               heavyTrafficCount > 0 ? 'bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300'
             }`}>
-              {heavyTrafficCount > 0 ? `${heavyTrafficCount} Slow` : 'Passable'}
+              {heavyTrafficCount > 0 ? `${heavyTrafficCount} ` + t('Mabagal', 'Slow') : t('Ligtas / Maluwag', 'Passable')}
             </span>
           </div>
 
@@ -150,7 +152,7 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
               Manila East
             </span>
             <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mt-0.5">
-              Traffic Reports
+              {t('Ulat sa Trapiko', 'Traffic Reports')}
             </p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">
               Calumpang, Darangan & Pantok
@@ -164,17 +166,17 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
         <div className="flex items-center justify-between">
           <div>
             <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
-              City information
+              {t('IMPORMASYON NG BAYAN', 'City Information')}
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              Offices, history, hotlines, and barangay facilities
+              {t('Tanggapan, kasaysayan, hotlines, at pasilidad sa 40 barangay', 'Offices, history, hotlines, and 40 barangays')}
             </p>
           </div>
           <button
             onClick={onOpenDirectory}
             className="text-xs font-semibold text-sky-600 dark:text-sky-400 hover:underline flex items-center gap-0.5"
           >
-            <span>View all</span>
+            <span>{t('Tingnan Lahat', 'View all')}</span>
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -189,10 +191,10 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
               <History className="w-6 h-6" />
             </div>
             <h4 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
-              City History
+              {t('Kasaysayan ng Bayan', 'City History')}
             </h4>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-              Explore Binangonan's story
+              {t('Tuklasin ang pamana ng Binangonan', "Explore Binangonan's story")}
             </p>
           </button>
 
@@ -205,10 +207,10 @@ export const CityAtAGlance: React.FC<CityAtAGlanceProps> = ({
               <Building2 className="w-6 h-6" />
             </div>
             <h4 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-              City Directory
+              {t('Direktoryo ng LGU', 'City Directory')}
             </h4>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-              40 Barangays, offices & hotlines
+              {t('40 Barangays, tanggapan at hotlines', '40 Barangays, offices & hotlines')}
             </p>
           </button>
         </div>

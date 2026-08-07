@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { DollarSign, Ship, Navigation, Landmark, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface FeaturedBannersProps {
   onOpenPesoChecker: () => void;
@@ -15,14 +16,15 @@ export const FeaturedBanners: React.FC<FeaturedBannersProps> = ({
   onOpenHistory,
 }) => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const { t } = useLanguage();
 
   const banners = [
     {
       id: 'peso',
-      badge: 'PESO RATE CHECKER',
-      title: "Check today's peso value",
-      description: 'PHP reference rates for major foreign currencies (USD, EUR, SGD, JPY).',
-      buttonText: 'View Rates',
+      badge: t('PALITAN NG PISO', 'PESO RATE CHECKER'),
+      title: t("Suriin ang palitan ng piso ngayon", "Check today's peso value"),
+      description: t('Impormasyon sa palitan ng Piso sa Dollar (USD), Euro, SGD, at Yen.', 'PHP reference rates for major foreign currencies (USD, EUR, SGD, JPY).'),
+      buttonText: t('Tingnan ang Rate', 'View Rates'),
       gradient: 'from-teal-900 via-emerald-800 to-slate-900',
       icon: DollarSign,
       action: onOpenPesoChecker,
@@ -30,10 +32,10 @@ export const FeaturedBanners: React.FC<FeaturedBannersProps> = ({
     },
     {
       id: 'ferry',
-      badge: 'TALIM ISLAND COMMUTE',
-      title: 'Pritil & Pila-pila Ferry Schedules',
-      description: 'Daily passenger banca departures to Janosa, Subay, Rayap & Habagatan.',
-      buttonText: 'Check Schedule',
+      badge: t('BYAHE SA ISLA NG TALIM', 'TALIM ISLAND COMMUTE'),
+      title: t('Iskedyul ng Bangka sa Pritil at Pila-pila', 'Pritil & Pila-pila Ferry Schedules'),
+      description: t('Araw-araw na biyahe ng passenger banca patungong Janosa, Subay, Rayap & Habagatan.', 'Daily passenger banca departures to Janosa, Subay, Rayap & Habagatan.'),
+      buttonText: t('Tingnan ang Byahe', 'Check Schedule'),
       gradient: 'from-sky-950 via-blue-900 to-slate-900',
       icon: Ship,
       action: onOpenFerry,
@@ -41,10 +43,10 @@ export const FeaturedBanners: React.FC<FeaturedBannersProps> = ({
     },
     {
       id: 'traffic',
-      badge: 'TRAFFIC & ROAD ADVISORY',
-      title: 'Manila East Road Live Status',
-      description: 'Check Calumpang, Darangan, & Quarry Road bottlenecks before driving.',
-      buttonText: 'View Traffic Map',
+      badge: t('ULAT SA TRAPIKO AT KALSADA', 'TRAFFIC & ROAD ADVISORY'),
+      title: t('Kasalukuyang Trapiko sa Manila East Road', 'Manila East Road Live Status'),
+      description: t('Tingnan ang lagay ng kalsada sa Calumpang, Darangan, at Quarry Road bago bumiyahe.', 'Check Calumpang, Darangan, & Quarry Road bottlenecks before driving.'),
+      buttonText: t('Tingnan ang Trapiko', 'View Traffic Map'),
       gradient: 'from-amber-950 via-orange-900 to-slate-900',
       icon: Navigation,
       action: () => onSelectTab('updates'),
@@ -52,10 +54,10 @@ export const FeaturedBanners: React.FC<FeaturedBannersProps> = ({
     },
     {
       id: 'history',
-      badge: 'BINANGONAN HERITAGE',
-      title: 'Discover Our City History',
-      description: 'Learn about Santa Ursula Church, Petroglyphs, and 1621 Franciscan heritage.',
-      buttonText: 'Explore Story',
+      badge: t('KASAYSAYAN NG BINANGONAN', 'BINANGONAN HERITAGE'),
+      title: t('Tuklasin ang Kasaysayan ng Bayan', 'Discover Our City History'),
+      description: t('Alamin ang tungkol sa Santa Ursula Church, Angono-Binangonan Petroglyphs, at pamana mula 1621.', 'Learn about Santa Ursula Church, Petroglyphs, and 1621 Franciscan heritage.'),
+      buttonText: t('Basahin ang Kwento', 'Explore Story'),
       gradient: 'from-indigo-950 via-slate-900 to-sky-950',
       icon: Landmark,
       action: onOpenHistory,
@@ -71,10 +73,10 @@ export const FeaturedBanners: React.FC<FeaturedBannersProps> = ({
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
-            Featured services
+            {t('MGA TAMPOK NA SERBISYO', 'Featured Services')}
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            Useful tools and advisories from Better Binangonan
+            {t('Makabuluhang impormasyon mula sa Pamahalaang Bayan ng Binangonan', 'Useful tools and advisories for Binangonan residents')}
           </p>
         </div>
 

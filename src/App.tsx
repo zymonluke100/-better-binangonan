@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavTab, ResidentReport, UserProfile } from './types';
+import { useLanguage } from './context/LanguageContext';
 import {
   INITIAL_WEATHER,
   INITIAL_FUEL_PRICES,
@@ -22,6 +23,7 @@ import { CityDirectory } from './components/CityDirectory';
 import { AIAssistantTab } from './components/AIAssistantTab';
 import { AuthScreen } from './components/AuthScreen';
 import { AccountTab } from './components/AccountTab';
+import { LegalDisclaimerFooter } from './components/LegalDisclaimerFooter';
 
 import { WeatherModal } from './components/WeatherModal';
 import { PesoCheckerModal } from './components/PesoCheckerModal';
@@ -33,11 +35,11 @@ import { Fuel, CheckCircle, ShieldCheck } from 'lucide-react';
 export default function App() {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [searchQuery, setSearchQuery] = useState('');
+  const { language, toggleLanguage } = useLanguage();
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const saved = localStorage.getItem('binangonan_theme');
     return saved === 'light' || saved === 'dark' ? saved : 'dark';
   });
-  const [language, setLanguage] = useState<'tagalog' | 'english'>('tagalog');
 
   React.useEffect(() => {
     const root = document.documentElement;
@@ -80,10 +82,6 @@ export default function App() {
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
-
-  const toggleLanguage = () => {
-    setLanguage((prev) => (prev === 'tagalog' ? 'english' : 'tagalog'));
   };
 
   // Live state
@@ -202,6 +200,8 @@ export default function App() {
             onUpdateUser={(updated) => setUser(updated)}
           />
         )}
+
+        <LegalDisclaimerFooter />
       </main>
 
       {/* Bottom Navigation */}

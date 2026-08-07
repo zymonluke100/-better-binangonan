@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
 import { PhoneCall, ShieldAlert, HeartPulse, Flame, Zap, Copy, Check, ExternalLink, MapPin, Search } from 'lucide-react';
 import { EmergencyContact } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface EmergencyDirectoryProps {
   contacts: EmergencyContact[];
 }
 
 export const EmergencyDirectory: React.FC<EmergencyDirectoryProps> = ({ contacts }) => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const categories = ['All', 'Disaster & Rescue', 'Police', 'Fire', 'Medical', 'Utilities'];
+
+  const getCategoryLabel = (cat: string) => {
+    switch (cat) {
+      case 'All': return t('Lahat', 'All');
+      case 'Disaster & Rescue': return t('Sakuna at Rescue', 'Disaster & Rescue');
+      case 'Police': return t('Pulisya (PNP)', 'Police');
+      case 'Fire': return t('Bumbero (BFP)', 'Fire');
+      case 'Medical': return t('Ospital at Kalusugan', 'Medical');
+      case 'Utilities': return t('Kuryente at Tubig', 'Utilities');
+      default: return cat;
+    }
+  };
 
   const handleCopy = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
@@ -57,10 +71,10 @@ export const EmergencyDirectory: React.FC<EmergencyDirectoryProps> = ({ contacts
             </span>
             <div>
               <h2 className="text-lg font-bold text-white tracking-tight">
-                Binangonan Emergency Hotlines
+                {t('Binangonan Emergency Hotlines', 'Binangonan Emergency Hotlines')}
               </h2>
               <p className="text-xs text-rose-200">
-                1-Tap Direct Emergency Calling & Dispatch Assistance
+                {t('1-Tap Mabilis na Tawag sa Emergency at Sakuna', '1-Tap Direct Emergency Calling & Dispatch Assistance')}
               </p>
             </div>
           </div>
@@ -85,7 +99,7 @@ export const EmergencyDirectory: React.FC<EmergencyDirectoryProps> = ({ contacts
           <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Search hotline by agency or name..."
+            placeholder={t('Maghanap ng hotline o pangalan ng tanggapan...', 'Search hotline by agency or name...')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-hidden focus:border-rose-500"
@@ -103,7 +117,7 @@ export const EmergencyDirectory: React.FC<EmergencyDirectoryProps> = ({ contacts
                   : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300'
               }`}
             >
-              {cat}
+              {getCategoryLabel(cat)}
             </button>
           ))}
         </div>

@@ -1,19 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bot, Send, User, Sparkles, AlertCircle, RefreshCw, PhoneCall, HelpCircle } from 'lucide-react';
 import { AIChatMessage } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 export const AIAssistantTab: React.FC = () => {
+  const { t, language } = useLanguage();
+
   const [messages, setMessages] = useState<AIChatMessage[]>([
     {
       id: 'msg-1',
       sender: 'assistant',
-      text: 'Mabuhay! Ako ang iyong **Binangonan Resident AI Assistant** (Gabay Binangoneño). Handa kitang tulungan sa mga katanungan tungkol sa local services, emergency hotlines, commuter guides (mga bangka at jeepney), requirements para sa clearance/cedula, at mga update sa Binangonan, Rizal!',
+      text: language === 'tagalog'
+        ? 'Mabuhay! Ako ang iyong **Binangonan Resident AI Assistant** (Gabay Binangoneño). Handa kitang tulungan sa mga katanungan tungkol sa local services, emergency hotlines, commuter guides (mga bangka at jeepney), requirements para sa clearance/cedula, at mga update sa Binangonan, Rizal!'
+        : 'Welcome! I am your **Binangonan Resident AI Assistant** (Gabay Binangoneño). I am here to help you with local municipal services, emergency hotlines, commuter guides (ferries & jeepneys), clearance requirements, and news updates in Binangonan, Rizal!',
       timestamp: 'Just now',
-      suggestedActions: [
+      suggestedActions: language === 'tagalog' ? [
         'Paano kumuha ng Cedula at Barangay Clearance?',
         'Ano ang emergency hotline ng MDRRMO at Pag-asa Hospital?',
         'Anong oras ang mga bangka mula Pritil Port papuntang Talim Island?',
         'Saan ang Municipal Hall at Business Permits Office?'
+      ] : [
+        'How to get a Cedula and Barangay Clearance?',
+        'What are the emergency hotlines for MDRRMO and Pag-asa Hospital?',
+        'What is the ferry schedule from Pritil Port to Talim Island?',
+        'Where is the Municipal Hall and Business Permits Office?'
       ]
     }
   ]);
@@ -57,7 +67,7 @@ export const AIAssistantTab: React.FC = () => {
       const aiMsg: AIChatMessage = {
         id: `ai-${Date.now()}`,
         sender: 'assistant',
-        text: data.reply || 'Patawad, nagkaroon ng pansamantalang problema. Pakisubukan muli.',
+        text: data.reply || t('Patawad, nagkaroon ng pansamantalang problema. Pakisubukan muli.', 'Sorry, an error occurred. Please try again.'),
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
@@ -67,7 +77,7 @@ export const AIAssistantTab: React.FC = () => {
       const errorMsg: AIChatMessage = {
         id: `err-${Date.now()}`,
         sender: 'assistant',
-        text: 'Patawad, hindi makakonekta sa AI server sa ngayon. Mangyaring sumangguni sa Emergency Hotlines tab para sa direktang tawag sa MDRRMO o Police.',
+        text: t('Patawad, hindi makakonekta sa AI server sa ngayon. Mangyaring sumangguni sa Emergency Hotlines tab para sa direktang tawag sa MDRRMO o Police.', 'Sorry, unable to connect to the AI server right now. Please check the Emergency Hotlines tab for direct contact numbers.'),
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, errorMsg]);
@@ -92,7 +102,7 @@ export const AIAssistantTab: React.FC = () => {
               </span>
             </div>
             <p className="text-[11px] text-slate-300">
-              Instant answers on Binangonan LGU services, commuting & emergency help
+              {t('Mabilis na sagot sa mga serbisyo ng Binangonan LGU, biyahe at emergency', 'Instant answers on Binangonan LGU services, commuting & emergency help')}
             </p>
           </div>
         </div>
@@ -103,18 +113,22 @@ export const AIAssistantTab: React.FC = () => {
               {
                 id: 'msg-reset',
                 sender: 'assistant',
-                text: 'Mabuhay! Ano ang nais mong malaman tungkol sa Binangonan ngayon?',
+                text: t('Mabuhay! Ano ang nais mong malaman tungkol sa Binangonan ngayon?', 'Welcome! What would you like to know about Binangonan today?'),
                 timestamp: 'Just now',
-                suggestedActions: [
+                suggestedActions: language === 'tagalog' ? [
                   'Paano kumuha ng Cedula at Barangay Clearance?',
                   'Ano ang emergency hotline ng MDRRMO at Pag-asa Hospital?',
                   'Anong oras ang mga bangka mula Pritil Port papuntang Talim Island?'
+                ] : [
+                  'How to get a Cedula and Barangay Clearance?',
+                  'What are the emergency hotlines for MDRRMO and Pag-asa Hospital?',
+                  'What is the ferry schedule from Pritil Port to Talim Island?'
                 ]
               }
             ]);
           }}
           className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
-          title="Reset Conversation"
+          title={t('Ulitin ang Kausap', 'Reset Conversation')}
         >
           <RefreshCw className="w-4 h-4" />
         </button>
@@ -179,7 +193,7 @@ export const AIAssistantTab: React.FC = () => {
         {isLoading && (
           <div className="flex items-center gap-2 text-slate-400 text-xs p-2">
             <Bot className="w-4 h-4 animate-bounce text-sky-500" />
-            <span>Nagsusulat ng sagot si Gabay Binangoneño...</span>
+            <span>{t('Nagsusulat ng sagot si Gabay Binangoneño...', 'Gabay Binangoneño is typing an answer...')}</span>
           </div>
         )}
 
@@ -190,7 +204,7 @@ export const AIAssistantTab: React.FC = () => {
       <div className="p-3 bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2">
         <input
           type="text"
-          placeholder="I-type ang iyong katanungan tungkol sa Binangonan..."
+          placeholder={t("I-type ang iyong katanungan tungkol sa Binangonan...", "Type your question about Binangonan...")}
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}

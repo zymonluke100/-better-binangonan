@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Building2, Search, MapPin, User, Phone, ShieldCheck, Ship, ChevronRight, Globe, Mail } from 'lucide-react';
 import { BARANGAYS_LIST, MUNICIPAL_OFFICES } from '../data/binangonanData';
+import { useLanguage } from '../context/LanguageContext';
 
 export const CityDirectory: React.FC = () => {
+  const { t } = useLanguage();
   const [activeSubTab, setActiveSubTab] = useState<'barangays' | 'offices'>('barangays');
   const [locationFilter, setLocationFilter] = useState<'All' | 'Mainland' | 'Talim Island'>('All');
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,11 +42,11 @@ export const CityDirectory: React.FC = () => {
           <div className="flex items-center gap-2">
             <Building2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             <h2 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
-              Binangonan City Directory
+              {t('Direktoryo ng Bayan ng Binangonan', 'Binangonan City Directory')}
             </h2>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Directory of 40 Barangays (Mainland & Talim Island) and Municipal LGU Offices
+            {t('Direktoryo ng 40 Barangay (Mainland at Isla ng Talim) at mga Tanggapan ng LGU', 'Directory of 40 Barangays (Mainland & Talim Island) and Municipal LGU Offices')}
           </p>
         </div>
 
@@ -58,7 +60,7 @@ export const CityDirectory: React.FC = () => {
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
             }`}
           >
-            40 Barangays ({BARANGAYS_LIST.length})
+            {t('40 Barangay', '40 Barangays')} ({BARANGAYS_LIST.length})
           </button>
           <button
             onClick={() => setActiveSubTab('offices')}
@@ -68,7 +70,7 @@ export const CityDirectory: React.FC = () => {
                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900'
             }`}
           >
-            LGU Municipal Offices ({MUNICIPAL_OFFICES.length})
+            {t('Tanggapan ng LGU', 'LGU Municipal Offices')} ({MUNICIPAL_OFFICES.length})
           </button>
         </div>
       </div>
@@ -81,8 +83,8 @@ export const CityDirectory: React.FC = () => {
             type="text"
             placeholder={
               activeSubTab === 'barangays'
-                ? 'Search barangay, captain, address...'
-                : 'Search municipal office or service...'
+                ? t('Maghanap ng barangay, kapitan, address...', 'Search barangay, captain, address...')
+                : t('Maghanap ng tanggapan o serbisyo...', 'Search municipal office or service...')
             }
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

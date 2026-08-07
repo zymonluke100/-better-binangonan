@@ -1,5 +1,6 @@
 import React from 'react';
 import { Fuel, HeartPulse, Ship, Trash2, FileText, ChevronRight, DollarSign } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface ResidentServicesProps {
   onOpenFuelPrices: () => void;
@@ -20,51 +21,53 @@ export const ResidentServices: React.FC<ResidentServicesProps> = ({
   onOpenPermits,
   onOpenPesoChecker,
 }) => {
+  const { t } = useLanguage();
+
   const services = [
     {
       id: 'fuel',
-      title: 'Presyo ng Gasolina',
-      status: 'Petron & Shell Update',
+      title: t('Presyo ng Gasolina', 'Fuel Rates'),
+      status: t('Petron & Shell Update', 'Petron & Shell Live'),
       icon: Fuel,
       color: 'bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border-blue-300 dark:border-blue-800',
       action: onOpenFuelPrices,
     },
     {
       id: 'health',
-      title: 'Ospital & Health',
-      status: 'MDRRMO / Pag-asa',
+      title: t('Ospital & Health', 'Health & Hospital'),
+      status: t('MDRRMO / Pag-asa', 'MDRRMO / Emergency'),
       icon: HeartPulse,
       color: 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border-rose-300 dark:border-rose-800',
       action: onOpenHealth,
     },
     {
       id: 'peso',
-      title: 'Peso Exchange Rate',
-      status: 'Palitan ng Dolyar',
+      title: t('Peso Exchange Rate', 'Peso Exchange Rates'),
+      status: t('Palitan ng Dolyar', 'Dollar / Foreign Currency'),
       icon: DollarSign,
       color: 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800',
       action: onOpenPesoChecker,
     },
     {
       id: 'ferry',
-      title: 'Bangka / Ferry Schedule',
-      status: 'Pritil & Talim Island',
+      title: t('Bangka / Ferry Schedule', 'Ferry Boat Schedule'),
+      status: t('Pritil & Talim Island', 'Pritil Wharf & Talim'),
       icon: Ship,
       color: 'bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 border-sky-300 dark:border-sky-800',
       action: onOpenFerrySchedule,
     },
     {
       id: 'waste',
-      title: 'Hakot ng Basura',
-      status: 'MENRO Binangonan',
+      title: t('Hakot ng Basura', 'Garbage Schedule'),
+      status: t('MENRO Binangonan', 'MENRO Environmental'),
       icon: Trash2,
       color: 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-800',
       action: onOpenWasteSchedule,
     },
     {
       id: 'permits',
-      title: 'Cedula at Clearance',
-      status: 'Barangay & Municipal',
+      title: t('Cedula at Clearance', 'Permits & Clearances'),
+      status: t('Barangay & Municipal', 'Barangay & LGU Hall'),
       icon: FileText,
       color: 'bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 border-purple-300 dark:border-purple-800',
       action: onOpenPermits,
@@ -76,10 +79,10 @@ export const ResidentServices: React.FC<ResidentServicesProps> = ({
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight">
-            MGA PANGUNAHING SERBISYO
+            {t('MGA PANGUNAHING SERBISYO', 'KEY LGU SERVICES')}
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            Mabilis na access sa mga serbisyo ng Binangonan LGU
+            {t('Mabilis na access sa mga serbisyo ng Binangonan LGU', 'Quick access to Binangonan Municipal LGU services')}
           </p>
         </div>
       </div>

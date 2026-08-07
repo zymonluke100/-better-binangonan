@@ -1,6 +1,7 @@
 import React from 'react';
 import { Home, Building2, Radio, AlertTriangle, UserCheck } from 'lucide-react';
 import { NavTab } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 interface BottomNavProps {
   activeTab: NavTab;
@@ -20,12 +21,14 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   onSelectTab,
   unresolvedReportsCount = 0,
 }) => {
+  const { t } = useLanguage();
+
   const tabs: NavItem[] = [
-    { id: 'home', label: 'Tahanan', icon: Home },
-    { id: 'services', label: 'LGU Offices', icon: Building2 },
-    { id: 'updates', label: 'Balita & Reports', icon: Radio, badge: unresolvedReportsCount > 0 ? unresolvedReportsCount : null },
-    { id: 'emergency', label: 'Emergency', icon: AlertTriangle },
-    { id: 'account', label: 'Account', icon: UserCheck },
+    { id: 'home', label: t('Tahanan', 'Home'), icon: Home },
+    { id: 'services', label: t('LGU Offices', 'LGU Directory'), icon: Building2 },
+    { id: 'updates', label: t('Balita & Reports', 'News & Reports'), icon: Radio, badge: unresolvedReportsCount > 0 ? unresolvedReportsCount : null },
+    { id: 'emergency', label: t('Emergency', 'Emergency'), icon: AlertTriangle },
+    { id: 'account', label: t('Akaun', 'Account'), icon: UserCheck },
   ];
 
   return (
