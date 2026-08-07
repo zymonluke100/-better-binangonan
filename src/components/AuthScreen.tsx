@@ -198,11 +198,11 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
           <div className="bg-blue-50 dark:bg-slate-800/80 border-2 border-blue-300 dark:border-blue-700 rounded-2xl p-4 space-y-3">
             <div className="flex items-center gap-2 text-blue-900 dark:text-blue-200 font-bold text-sm">
               <Sparkles className="w-5 h-5 text-blue-600 dark:text-sky-400 shrink-0" />
-              <span>1-TAP DIRECT ACCESS DEMO ACCOUNTS:</span>
+              <span>1-TAP RESIDENT PROFILE EVALUATION SAMPLES:</span>
             </div>
             
             <p className="text-xs text-blue-800 dark:text-slate-300 leading-relaxed font-medium">
-              You can instantly sign in using our prepared demo credentials (with generated Primary Resident IDs):
+              Agad na pumasok bilang official verified resident gamit ang halimbawang Primary Resident IDs:
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
