@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Shield, UserCheck, Heart, LogIn, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Shield, UserCheck, Heart, LogIn, ArrowRight, Sparkles, CheckCircle2, Mail } from 'lucide-react';
 import { UserProfile } from '../types';
+import { BARANGAYS_LIST } from '../data/binangonanData';
 
 interface AuthScreenProps {
   onLogin: (user: UserProfile) => void;
@@ -10,21 +11,25 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [barangay, setBarangay] = useState('Brgy. Calumpang');
-  const [isSenior, setIsSenior] = useState(true);
+  const [isSenior, setIsSenior] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleCustomLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      setErrorMessage('Paki-lagay po ang inyong Email at Password.');
+    if (!email) {
+      setErrorMessage('Paki-lagay po ang inyong Email Address.');
       return;
     }
     const namePart = email.split('@')[0];
-    const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+    const formattedName = namePart
+      .split(/[._-]/)
+      .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ');
+
     onLogin({
-      name: formattedName || 'Resident Member',
+      name: formattedName || 'Binangonan Resident',
       email: email,
-      barangay: barangay,
+      barangay: barangay.startsWith('Brgy.') ? barangay : `Brgy. ${barangay}`,
       isSeniorCitizen: isSenior,
       seniorIdNumber: isSenior ? 'BNG-SR-2026-889' : undefined,
       contactNumber: '0917-555-0192',
@@ -153,21 +158,27 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin }) => {
 
             <div>
               <label className="block text-sm font-bold text-slate-800 mb-1">
-                📍 Barangay sa Binangonan:
+                📍 Barangay sa Binangonan (Pumili sa 40 Barangays):
               </label>
               <select
                 value={barangay}
                 onChange={(e) => setBarangay(e.target.value)}
                 className="w-full p-3 bg-white border-2 border-slate-300 focus:border-blue-600 rounded-xl font-bold text-sm text-slate-900 focus:outline-none"
               >
-                <option value="Brgy. Calumpang">Brgy. Calumpang</option>
-                <option value="Brgy. Darangan">Brgy. Darangan</option>
-                <option value="Brgy. Bilibiran">Brgy. Bilibiran</option>
-                <option value="Brgy. Libis (Town Proper)">Brgy. Libis (Town Proper)</option>
-                <option value="Brgy. Janosa (Talim Island)">Brgy. Janosa (Talim Island)</option>
-                <option value="Brgy. Rayap (Talim Island)">Brgy. Rayap (Talim Island)</option>
-                <option value="Brgy. Pantok">Brgy. Pantok</option>
-                <option value="Brgy. Tagpos">Brgy. Tagpos</option>
+                <optgroup label="Mainland Barangays (23)">
+                  {BARANGAYS_LIST.filter(b => b.locationType === 'Mainland').map(b => (
+                    <option key={b.name} value={`Brgy. ${b.name}`}>
+                      Brgy. {b.name}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="Talim Island Barangays (17)">
+                  {BARANGAYS_LIST.filter(b => b.locationType === 'Talim Island').map(b => (
+                    <option key={b.name} value={`Brgy. ${b.name}`}>
+                      Brgy. {b.name} (Talim Island)
+                    </option>
+                  ))}
+                </optgroup>
               </select>
             </div>
 
