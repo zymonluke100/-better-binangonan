@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Shield, HeartPulse, LogOut, Award, MapPin, Phone, CheckCircle2, Edit3, Key, Calendar, Briefcase, Users, Heart, Save, X, Activity, Vote, QrCode, Printer } from 'lucide-react';
+import { User, Shield, HeartPulse, LogOut, Award, MapPin, Phone, CheckCircle2, Edit3, Key, Calendar, Briefcase, Users, Heart, Save, X, Activity, Vote, QrCode, Printer, Database } from 'lucide-react';
 import { UserProfile } from '../types';
 import { BARANGAYS_LIST } from '../data/binangonanData';
 import { useLanguage } from '../context/LanguageContext';
@@ -10,9 +10,10 @@ interface AccountTabProps {
   user: UserProfile;
   onLogout: () => void;
   onUpdateUser?: (updated: UserProfile) => void;
+  onOpenAdmin?: () => void;
 }
 
-export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdateUser }) => {
+export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdateUser, onOpenAdmin }) => {
   const { t } = useLanguage();
   const [isEditing, setIsEditing] = useState(false);
   const [showDigitalIdModal, setShowDigitalIdModal] = useState(false);
@@ -98,14 +99,24 @@ export const AccountTab: React.FC<AccountTabProps> = ({ user, onLogout, onUpdate
         </div>
 
         {/* Action Button: Show Official Digital ID Pass */}
-        <div className="relative z-10 pt-1">
+        <div className="relative z-10 pt-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
           <button
             onClick={() => setShowDigitalIdModal(true)}
-            className="w-full py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg transition-all border-2 border-amber-200"
+            className="w-full py-2.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg transition-all border-2 border-amber-200"
           >
             <QrCode className="w-5 h-5 text-slate-900" />
-            <span>{t('TINGNAN AT I-PRINT ANG RESIDENT DIGITAL ID PASS (QR CODE)', 'VIEW & PRINT DIGITAL RESIDENT ID PASS')}</span>
+            <span>{t('RESIDENT DIGITAL ID PASS', 'RESIDENT DIGITAL ID PASS')}</span>
           </button>
+
+          {onOpenAdmin && (
+            <button
+              onClick={onOpenAdmin}
+              className="w-full py-2.5 bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs sm:text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg transition-all border-2 border-amber-400/50"
+            >
+              <Database className="w-5 h-5 text-emerald-400" />
+              <span>{t('LGU CITIZEN REGISTRY & CLOUD DATABASE', 'LGU REGISTRY & FIRESTORE DATABASE')}</span>
+            </button>
+          )}
         </div>
 
         {/* Resident ID Details & Primary Key */}

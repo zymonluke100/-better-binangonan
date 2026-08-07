@@ -1,11 +1,12 @@
 import React from 'react';
-import { Shield, PhoneCall, Bot, UserCheck, Sun, Moon, Globe } from 'lucide-react';
+import { Shield, PhoneCall, Bot, UserCheck, Sun, Moon, Globe, Database } from 'lucide-react';
 import { UserProfile } from '../types';
 
 interface NavbarProps {
   activeTab: string;
   onSelectTab: (tab: any) => void;
   onOpenEmergency: () => void;
+  onOpenAdmin: () => void;
   searchQuery: string;
   setSearchQuery: (q: string) => void;
   user: UserProfile | null;
@@ -19,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   onSelectTab,
   onOpenEmergency,
+  onOpenAdmin,
   user,
   theme,
   onToggleTheme,
@@ -53,6 +55,16 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Action Controls */}
         <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* LGU Registry & Cloud DB Portal Button */}
+          <button
+            onClick={onOpenAdmin}
+            className="flex items-center gap-1 px-2.5 py-1.2 sm:px-3 sm:py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow-xs transition-all border border-amber-300 text-xs"
+            title="Open LGU Citizens Registry & Cloud Firestore Database Portal"
+          >
+            <Database className="w-3.5 h-3.5 text-slate-950" />
+            <span className="hidden md:inline">LGU REGISTRY</span>
+          </button>
+
           {/* Language Selector */}
           <button
             onClick={onToggleLanguage}

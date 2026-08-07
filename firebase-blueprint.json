@@ -42,6 +42,20 @@
         "createdAt": { "type": "string" }
       },
       "required": ["title", "category", "description", "barangay"]
+    },
+    "announcements": {
+      "title": "LGU Announcements",
+      "description": "Official municipal and barangay updates broadcast live to all citizens",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "content": { "type": "string" },
+        "barangay": { "type": "string" },
+        "author": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["title", "content"]
     }
   }
 }

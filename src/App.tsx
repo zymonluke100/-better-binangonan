@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavTab, ResidentReport, UserProfile } from './types';
 import { useLanguage } from './context/LanguageContext';
 import { getActiveSession, saveCurrentSession } from './services/accountStore';
+import { LguAdminModal } from './components/LguAdminModal';
+import {
+  subscribeAnnouncements,
+  subscribeCitizenReports,
+  addReportToFirestore,
+} from './services/communityStore';
 import {
   INITIAL_WEATHER,
   INITIAL_FUEL_PRICES,
@@ -69,6 +75,22 @@ export default function App() {
   const [trafficList, setTrafficList] = useState(INITIAL_TRAFFIC);
   const [announcements, setAnnouncements] = useState(INITIAL_ANNOUNCEMENTS);
 
+  // Subscribe to real-time Cloud Firestore updates
+  useEffect(() => {
+    const unsubAnn = subscribeAnnouncements((liveAnn) => {
+      setAnnouncements((prev) => [...liveAnn, ...prev.filter(p => !liveAnn.some(l => l.id === p.id))]);
+    });
+
+    const unsubRep = subscribeCitizenReports((liveRep) => {
+      setCitizenReports((prev) => [...liveRep, ...prev.filter(p => !liveRep.some(l => l.id === p.id))]);
+    });
+
+    return () => {
+      unsubAnn();
+      unsubRep();
+    };
+  }, []);
+
   // Modal triggers
   const [showWeatherModal, setShowWeatherModal] = useState(false);
   const [showPesoModal, setShowPesoModal] = useState(false);
@@ -76,9 +98,11 @@ export default function App() {
   const [showFerryModal, setShowFerryModal] = useState(false);
   const [showWasteModal, setShowWasteModal] = useState(false);
   const [showFuelModal, setShowFuelModal] = useState(false);
+  const [showAdminModal, setShowAdminModal] = useState(false);
 
   const handleAddReport = (newReport: ResidentReport) => {
     setCitizenReports((prev) => [newReport, ...prev]);
+    addReportToFirestore(newReport);
   };
 
   const handleUpvoteReport = (id: string) => {
@@ -107,6 +131,7 @@ export default function App() {
           activeTab={activeTab}
           onSelectTab={setActiveTab}
           onOpenEmergency={() => setActiveTab('emergency')}
+          onOpenAdmin={() => setShowAdminModal(true)}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           user={user}
@@ -178,6 +203,7 @@ export default function App() {
             user={user}
             onLogout={handleLogout}
             onUpdateUser={(updated) => setUser(updated)}
+            onOpenAdmin={() => setShowAdminModal(true)}
           />
         )}
 
@@ -192,6 +218,13 @@ export default function App() {
       />
 
       {/* MODALS */}
+      {showAdminModal && (
+        <LguAdminModal
+          currentUser={user}
+          onClose={() => setShowAdminModal(false)}
+        />
+      )}
+
       {showWeatherModal && (
         <WeatherModal
           weather={INITIAL_WEATHER}

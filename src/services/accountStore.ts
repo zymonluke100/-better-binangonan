@@ -1,6 +1,6 @@
 import { UserProfile } from '../types';
 import { db } from '../lib/firebase';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, getDocs, collection } from 'firebase/firestore';
 
 export interface SavedAccount {
   passwordHash: string; // Plain password for local demo or hashed string
@@ -28,7 +28,37 @@ export const syncProfileToFirestore = async (profile: UserProfile) => {
   }
 };
 
-// Helper to fetch profile from Firestore cloud database
+// Fetch ALL registered residents live from Firestore Cloud Database
+export const fetchAllProfilesFromFirestore = async (): Promise<UserProfile[]> => {
+  try {
+    const snap = await getDocs(collection(db, 'users'));
+    const cloudProfiles: UserProfile[] = [];
+    snap.forEach((docSnap) => {
+      const data = docSnap.data() as UserProfile;
+      if (data && data.name) {
+        cloudProfiles.push(data);
+      }
+    });
+
+    if (cloudProfiles.length > 0) {
+      return cloudProfiles;
+    }
+
+    // Auto-seed default accounts to Firestore if empty
+    for (const defaultAcc of DEFAULT_ACCOUNTS) {
+      await syncProfileToFirestore(defaultAcc.profile);
+    }
+    return DEFAULT_ACCOUNTS.map((acc) => acc.profile);
+  } catch (err) {
+    console.warn('Firestore read error, falling back to local registry:', err);
+  }
+
+  // Fallback to local accounts
+  const local = getStoredAccounts();
+  return local.map((acc) => acc.profile);
+};
+
+// Helper to fetch single profile from Firestore
 export const fetchProfileFromFirestore = async (docId: string): Promise<UserProfile | null> => {
   try {
     const userRef = doc(db, 'users', docId);
