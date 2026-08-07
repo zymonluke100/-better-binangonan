@@ -26,7 +26,7 @@ export const ResidentServices: React.FC<ResidentServicesProps> = ({
       title: 'Presyo ng Gasolina',
       status: 'Petron & Shell Update',
       icon: Fuel,
-      color: 'bg-blue-100 text-blue-800 border-blue-300',
+      color: 'bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 border-blue-300 dark:border-blue-800',
       action: onOpenFuelPrices,
     },
     {
@@ -34,7 +34,7 @@ export const ResidentServices: React.FC<ResidentServicesProps> = ({
       title: 'Ospital & Health',
       status: 'MDRRMO / Pag-asa',
       icon: HeartPulse,
-      color: 'bg-rose-100 text-rose-800 border-rose-300',
+      color: 'bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 border-rose-300 dark:border-rose-800',
       action: onOpenHealth,
     },
     {
@@ -42,7 +42,7 @@ export const ResidentServices: React.FC<ResidentServicesProps> = ({
       title: 'Peso Exchange Rate',
       status: 'Palitan ng Dolyar',
       icon: DollarSign,
-      color: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+      color: 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800',
       action: onOpenPesoChecker,
     },
     {
@@ -50,7 +50,7 @@ export const ResidentServices: React.FC<ResidentServicesProps> = ({
       title: 'Bangka / Ferry Schedule',
       status: 'Pritil & Talim Island',
       icon: Ship,
-      color: 'bg-sky-100 text-sky-800 border-sky-300',
+      color: 'bg-sky-100 dark:bg-sky-950/80 text-sky-800 dark:text-sky-300 border-sky-300 dark:border-sky-800',
       action: onOpenFerrySchedule,
     },
     {
@@ -58,7 +58,7 @@ export const ResidentServices: React.FC<ResidentServicesProps> = ({
       title: 'Hakot ng Basura',
       status: 'MENRO Binangonan',
       icon: Trash2,
-      color: 'bg-amber-100 text-amber-800 border-amber-300',
+      color: 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-800',
       action: onOpenWasteSchedule,
     },
     {
@@ -66,7 +66,7 @@ export const ResidentServices: React.FC<ResidentServicesProps> = ({
       title: 'Cedula at Clearance',
       status: 'Barangay & Municipal',
       icon: FileText,
-      color: 'bg-purple-100 text-purple-800 border-purple-300',
+      color: 'bg-purple-100 dark:bg-purple-950/80 text-purple-800 dark:text-purple-300 border-purple-300 dark:border-purple-800',
       action: onOpenPermits,
     },
   ];

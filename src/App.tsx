@@ -33,8 +33,21 @@ import { Fuel, CheckCircle, ShieldCheck } from 'lucide-react';
 export default function App() {
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [searchQuery, setSearchQuery] = useState('');
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const saved = localStorage.getItem('binangonan_theme');
+    return saved === 'light' || saved === 'dark' ? saved : 'dark';
+  });
   const [language, setLanguage] = useState<'tagalog' | 'english'>('tagalog');
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('binangonan_theme', theme);
+  }, [theme]);
 
   // User state - Pre-logged in with Senior Demo account for instant ease of use!
   const [user, setUser] = useState<UserProfile | null>({
